@@ -1,28 +1,14 @@
 """
-Utils — Cross-cutting Utilities
-Normalisation · Semantic Entropy · Visualisation Suite
+Project Manifold 0.56 — The Invariance Engine
+===============================================
+Author:  Gonzalo Emir Durante
+License: Durante Invariance License v1.0
+Record:  EX-2026-18792778- -APN-DGDYD#JGM
+Zenodo:  https://zenodo.org/records/18664548
+
+"Energy transforms, truth is conserved. 0.56 is the law."
 """
 
-from src.utils.helpers import (
-    normalize_manifold,
-    calculate_entropy,
-    compute_pipeline_scores_summary,
-    clip_to_invariance_sphere,
-)
-from src.utils.plotting import (
-    plot_persistence_barcodes,
-    plot_stability_gauge,
-    plot_stability_radar,
-    plot_full_report,
-)
-
-__all__ = [
-    "normalize_manifold",
-    "calculate_entropy",
-    "compute_pipeline_scores_summary",
-    "clip_to_invariance_sphere",
-    "plot_persistence_barcodes",
-    "plot_stability_gauge",
-    "plot_stability_radar",
-    "plot_full_report",
-]
+__version__ = "0.56.0"
+__author__  = "Gonzalo Emir Durante"
+__license__ = "Durante Invariance License v1.0"
