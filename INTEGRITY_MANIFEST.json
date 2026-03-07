@@ -1,0 +1,199 @@
+{
+  "project": "Project Manifold 0.56 — The Invariance Engine",
+  "author": "Gonzalo Emir Durante",
+  "license": "Durante Invariance License v1.0",
+  "registration": "EX-2026-18792778- -APN-DGDYD#JGM",
+  "zenodo": "https://zenodo.org/records/18664548",
+  "generated_at": "2026-03-07T12:02:30.161343+00:00",
+  "algorithm": "SHA-256",
+  "total_files": 31,
+  "master_digest": "b8fbe7c0e334fd483634c16c87a8b2cff77debc118b35b115d89d25e04f45e1b",
+  "files": [
+    {
+      "file": "docs/en/Phase_I_Invariance.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "379ee7ce515fc313b2930aa191b452ee626a9e798c40f940dde8412c17359b6d",
+      "size_bytes": 113530
+    },
+    {
+      "file": "docs/en/Phase_II_Crystal_Net.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "feb35ae395e6d9a84afff0005836589dcf3d2fd10eed144b5072d179ffedc7e7",
+      "size_bytes": 87024
+    },
+    {
+      "file": "docs/en/Phase_III_Homology.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "e4248c3092f63b5f11330938e0f1428f2a080e7482f0f631b5dc642a281a39d8",
+      "size_bytes": 108208
+    },
+    {
+      "file": "docs/en/Phase_IV_Ricci_Flow.pdf",
+      "description": "Phase IV  — Ricci Flow",
+      "sha256": "d8ca458dbc307736c0dd3722a1f9366a4ac97741f6c3eb672470ef30bd309c86",
+      "size_bytes": 86314
+    },
+    {
+      "file": "docs/en/Phase_V_Simplex_HD.pdf",
+      "description": "Phase V   — Simplex Engine",
+      "sha256": "949dcdde351c189c85372ddbfc95389e4760b88856d8cb814f2d1a3185860b7b",
+      "size_bytes": 94790
+    },
+    {
+      "file": "docs/en/Phase_VI_Governance.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "0b0433630eb8b194cb4d0d714f0aca6483b94a6398139ce5fa1cfb63fa40ddfe",
+      "size_bytes": 82260
+    },
+    {
+      "file": "docs/es/Fase_I_Invarianza.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "b36d1e80b6d8aa8752fe0ecfe56a81b61ae748e9def373eeb4486e25186276a3",
+      "size_bytes": 106612
+    },
+    {
+      "file": "docs/es/Fase_II_Red_Cristal.pdf.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "4718e070fb28b7313116c20eef5f8bb315da448ff6c284aa329d6b7507f6ba43",
+      "size_bytes": 89235
+    },
+    {
+      "file": "docs/es/Fase_III_Homologia.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "66d0d138e05d530c4835ddeb050b6d321c96ba995c13ce27d6161ecf4aa38db0",
+      "size_bytes": 101901
+    },
+    {
+      "file": "docs/es/Fase_IV_Flujo_Ricci.pdf",
+      "description": "Phase IV  — Ricci Flow",
+      "sha256": "740ef15207d16c8be62b3e27aaa03b6fa7236365c87a31a00ab64c227c54be48",
+      "size_bytes": 86856
+    },
+    {
+      "file": "docs/es/Fase_V_Simplex_HD.pdf",
+      "description": "Phase V   — Simplex Engine",
+      "sha256": "3149158829a17012007d8b101286a80302653d74cd439fa3d8ceca9936ffc170",
+      "size_bytes": 87293
+    },
+    {
+      "file": "docs/es/Fase_VI_Gobernanza.pdf.pdf",
+      "description": "Docs      — Manual / PDF",
+      "sha256": "ee8909804a84f701bf5b56cee3218ab71beb38dd0b43f300f3afd96f035a59a1",
+      "size_bytes": 74557
+    },
+    {
+      "file": "generate_hashes.py",
+      "description": "Other",
+      "sha256": "c3352bf70b35291faca6bbae31e5bd0eeedb6e1aeb6de436a96b441c327c565d",
+      "size_bytes": 10367
+    },
+    {
+      "file": "legal/PRIOR_ART_DECLARATION.md",
+      "description": "Legal     — Prior Art Declaration",
+      "sha256": "47f5ed77088722ec61ab3234b2c6b34753211e2036d2bf82d7d163a6a6e90177",
+      "size_bytes": 10952
+    },
+    {
+      "file": "legal/TAD_ARGENTINA_NOTICE.txt",
+      "description": "Legal     — TAD Notice",
+      "sha256": "16d3d7a3ee03967e03f3ae734e46536c3ab03fa012f56ea9d885051a527edad6",
+      "size_bytes": 7441
+    },
+    {
+      "file": "LICENSE.md",
+      "description": "Legal     — License",
+      "sha256": "1f95230b2ae9af4eeba345c632e2cc4aa79fe2cfdb3078994fc2751e948d0920",
+      "size_bytes": 9225
+    },
+    {
+      "file": "main.py",
+      "description": "Orchestrator — main.py",
+      "sha256": "0ad47cac7acf363fe9fdb89dd9357dd050a9d54b4392915a260bedd96b2d1256",
+      "size_bytes": 16710
+    },
+    {
+      "file": "readme.md",
+      "description": "README",
+      "sha256": "bd93a8a902754d37c4a14b31f4f0d320623dcc9f20093ae59043e59f8e26204d",
+      "size_bytes": 32251
+    },
+    {
+      "file": "requirements.txt",
+      "description": "Config    — requirements.txt",
+      "sha256": "e91bf6956abc0b8885c87abe5f5caccb6fa46ab846ffe48fd7b2f2585655dec0",
+      "size_bytes": 3714
+    },
+    {
+      "file": "src/__init__.py",
+      "description": "Other",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file": "src/audit/filtration.py",
+      "description": "Phase III — Vietoris-Rips Filtration",
+      "sha256": "5e966b3df9f6f339e201a51f861bb7754c1b062f8c14a347f7dd3ac0b0a9857b",
+      "size_bytes": 5039
+    },
+    {
+      "file": "src/audit/persistence.py",
+      "description": "Phase III — Persistent Homology",
+      "sha256": "9ed0d5b9b7f4b71541eb5b5e0c19c2dd6a51977261377c4936bacb537865ac82",
+      "size_bytes": 9787
+    },
+    {
+      "file": "src/audit/ricci_flow.py",
+      "description": "Phase IV  — Ricci Flow",
+      "sha256": "ba392c37f666f675ac8b66c5e3b3f1022872fbbc43bb9f994035f7555a0d8621",
+      "size_bytes": 9276
+    },
+    {
+      "file": "src/core/constants.py",
+      "description": "Phase I   — Constants & κ_D",
+      "sha256": "75dca63c56e90c63e9c9cc115b50814a8d51eedf9f30af452b2f1fedb7a51267",
+      "size_bytes": 2787
+    },
+    {
+      "file": "src/core/crystal_engine.py",
+      "description": "Phase II  — Crystal Network",
+      "sha256": "6396c11ebac5beb9bdc57eb774460960c3495901afcfb959b87928a943e49381",
+      "size_bytes": 5730
+    },
+    {
+      "file": "src/reasoning/simplex_engine.py",
+      "description": "Phase V   — Simplex Engine",
+      "sha256": "2928d17d2bf218b803434d3e9346d5cae40397140fcb2e88753c8131f080dbde",
+      "size_bytes": 10032
+    },
+    {
+      "file": "src/requirements.txt",
+      "description": "Config    — requirements.txt",
+      "sha256": "5a818437fe20c5b0dd9cc87a85eb67ae4965513183596e69d7aa6a4f7ad23be0",
+      "size_bytes": 578
+    },
+    {
+      "file": "src/safety/certification.py",
+      "description": "Phase VI  — Certification (OSS)",
+      "sha256": "924226ef63f593f98cb08121eb558a4dd34e938c73aad55d2e1f4d80992e998a",
+      "size_bytes": 9280
+    },
+    {
+      "file": "src/safety/monitor.py",
+      "description": "Phase VI  — Invariance Monitor",
+      "sha256": "110efc410e60c851d700852e275b67afe5a9460d453e37b538f4acd8f5777ac2",
+      "size_bytes": 5975
+    },
+    {
+      "file": "src/utils/helpers.py",
+      "description": "Utils     — Helpers",
+      "sha256": "3c2c2f282de4e6e0aacfc2d6012dd3f86b5e93ad8fca8e5bff9e3b9ab212261f",
+      "size_bytes": 7590
+    },
+    {
+      "file": "src/utils/plotting.py",
+      "description": "Utils     — Visualisation",
+      "sha256": "bc54093978c6cbb9d8d4af85afa049205f727facbe50d10e4442913de67b3414",
+      "size_bytes": 16166
+    }
+  ]
+}

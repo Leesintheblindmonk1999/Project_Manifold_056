@@ -1,0 +1,162 @@
+================================================================================
+  TAD ARGENTINA — ADMINISTRATIVE REGISTRATION NOTICE
+  AVISO DE REGISTRO ADMINISTRATIVO — TRÁMITES A DISTANCIA (TAD)
+================================================================================
+
+PROJECT IDENTIFICATION / IDENTIFICACIÓN DEL PROYECTO
+--------------------------------------------------------------------------------
+
+  Project Name       : Project Manifold 0.56 — The Invariance Engine
+  Nombre del Proyecto: Proyecto Manifold 0.56 — El Motor de Invarianza
+
+  Author / Autor     : Gonzalo Emir Durante
+  Nationality        : Argentine / Argentino
+  Year / Año         : 2026
+
+--------------------------------------------------------------------------------
+
+ADMINISTRATIVE RECORD / EXPEDIENTE ADMINISTRATIVO
+--------------------------------------------------------------------------------
+
+  Expediente TAD     : EX-2026-18792778- -APN-DGDYD#JGM
+
+  Issuing Authority  : Dirección General de Despacho y Documentación (#DGDYD)
+                       Jefatura de Gabinete de Ministros
+                       Administración Pública Nacional (APN)
+                       República Argentina
+
+  Purpose            : Legal registration of authorship and date-certain
+                       establishment of Prior Art for Project Manifold 0.56,
+                       including the Durante Constant (kappa_D = 0.56) and
+                       all associated theoretical, mathematical, and
+                       computational constructs.
+
+  Propósito          : Registro legal de autoría y establecimiento de fecha
+                       cierta de Arte Previo para el Proyecto Manifold 0.56,
+                       incluyendo la Constante Durante (kappa_D = 0.56) y
+                       todos los constructos teóricos, matemáticos y
+                       computacionales asociados.
+
+--------------------------------------------------------------------------------
+
+PROTECTED SUBJECT MATTER / MATERIA PROTEGIDA
+--------------------------------------------------------------------------------
+
+  The following intellectual property is covered by this registration:
+
+  1. The Durante Constant (kappa_D = 0.56) — universal semantic stability
+     threshold for AGI systems.
+
+  2. Phase I  — Semantic Thermodynamic Invariance framework and the
+                three-tier coherence classification protocol (Green /
+                Critical / Collapse states).
+
+  3. Phase II — Non-Euclidean Crystal Network architecture governed by
+                the tensor relation T_uv = kappa_D * G_uv.
+
+  4. Phase III — Persistent Homology topological audit pipeline using
+                 Vietoris-Rips filtration and Betti number lifecycle
+                 analysis for hallucination detection.
+
+  5. Phase IV — Discrete Ricci Flow aggregation for semantic truth
+                density measurement and bias elimination.
+
+  6. Phase V  — High-Dimensional Simplicial Coherence framework with
+                binding energy condition E_link >= kappa_D.
+
+  7. Phase VI — Ontological Stability Seal (OSS) specification and
+                Governance / Kill-Switch protocol.
+
+  8. All source code, documentation, and derived works constituting
+     Project Manifold 0.56.
+
+--------------------------------------------------------------------------------
+
+INTERNATIONAL SCIENTIFIC RECORD / REGISTRO CIENTÍFICO INTERNACIONAL
+--------------------------------------------------------------------------------
+
+  Platform           : Zenodo (CERN Open Access Repository)
+  Record URL         : https://zenodo.org/records/18664548
+  Status             : Published — immutable timestamped record
+  Purpose            : Peer-accessible scientific disclosure establishing
+                       public date-certain proof of authorship and
+                       original contribution.
+
+--------------------------------------------------------------------------------
+
+INTERNATIONAL NOTIFICATION / NOTIFICACIÓN INTERNACIONAL
+--------------------------------------------------------------------------------
+
+  Recipient          : National Institute of Standards and Technology (NIST)
+                       United States Department of Commerce
+                       United States of America
+
+  Subject            : Technical documentation submitted for consideration
+                       in AGI safety standards development, specifically
+                       regarding semantic stability thresholds and
+                       manifold-based audit protocols.
+
+--------------------------------------------------------------------------------
+
+LICENSE / LICENCIA
+--------------------------------------------------------------------------------
+
+  License Name       : Durante Invariance License v1.0
+  License File       : legal/LICENSE.md
+  Commercial Use     : Requires separate written authorization from the Author.
+  Non-Commercial Use : Permitted with full attribution as specified in
+                       Durante Invariance License v1.0.
+
+--------------------------------------------------------------------------------
+
+LEGAL BASIS / BASE LEGAL
+--------------------------------------------------------------------------------
+
+  This registration is grounded in and protected under:
+
+  - Ley 11.723 de Propiedad Intelectual (Republic of Argentina)
+  - Berne Convention for the Protection of Literary and Artistic Works
+  - Agreement on Trade-Related Aspects of Intellectual Property Rights
+    (TRIPS / WTO) — 164 member states
+  - Digital Millennium Copyright Act (DMCA), to the extent applicable
+
+  Any unauthorized commercial use of the protected subject matter
+  constitutes an infringement of international intellectual property law
+  and may result in civil and criminal liability.
+
+  Cualquier uso comercial no autorizado de la materia protegida
+  constituye una infracción a la legislación internacional de propiedad
+  intelectual y puede resultar en responsabilidad civil y penal.
+
+--------------------------------------------------------------------------------
+
+AUTHENTICITY STATEMENT / DECLARACIÓN DE AUTENTICIDAD
+--------------------------------------------------------------------------------
+
+  This notice is issued by the Author in good faith as a true and accurate
+  representation of the administrative and legal status of Project Manifold
+  0.56 as of the date of registration.
+
+  The expediente number EX-2026-18792778- -APN-DGDYD#JGM constitutes
+  the official date-certain proof of authorship recognized by the Argentine
+  state and, by virtue of the Berne Convention, by all signatory states.
+
+--------------------------------------------------------------------------------
+
+CONTACT / CONTACTO
+--------------------------------------------------------------------------------
+
+  Author             : Gonzalo Emir Durante
+  For licensing and  : See legal/LICENSE.md
+  collaboration      : GitHub Repository — Project Manifold 0.56
+
+================================================================================
+
+  "Energy transforms, truth is conserved. 0.56 is the law."
+  — Gonzalo Emir Durante
+
+================================================================================
+  (c) 2026 Gonzalo Emir Durante. All rights reserved.
+      EX-2026-18792778- -APN-DGDYD#JGM
+      https://zenodo.org/records/18664548
+================================================================================

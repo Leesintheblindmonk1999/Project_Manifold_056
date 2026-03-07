@@ -1,0 +1,168 @@
+# ==============================================================================
+# Project Manifold 0.56 — .gitignore
+# Author: Gonzalo Emir Durante
+# License: Durante Invariance License v1.0
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Python
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+
+# ------------------------------------------------------------------------------
+# Virtual environments
+# ------------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+.env
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# ------------------------------------------------------------------------------
+# Testing & Coverage
+# ------------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.cover
+.hypothesis/
+nosetests.xml
+test-results/
+
+# ------------------------------------------------------------------------------
+# Type checking & linting
+# ------------------------------------------------------------------------------
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+# ------------------------------------------------------------------------------
+# Jupyter Notebooks (checkpoints only — keep .ipynb if needed)
+# ------------------------------------------------------------------------------
+.ipynb_checkpoints/
+*.ipynb
+
+# ------------------------------------------------------------------------------
+# Data — raw hallucination logs and intermediate tensors
+# (processed tensors can be large; regenerate from raw)
+# ------------------------------------------------------------------------------
+data/raw/*.log
+data/raw/*.jsonl
+data/raw/*.csv
+data/processed/*.npy
+data/processed/*.npz
+data/processed/*.pkl
+data/processed/*.pt
+data/processed/*.h5
+
+# ------------------------------------------------------------------------------
+# Output — generated PNGs and certificates
+# (reproducible via main.py — do not commit generated artifacts)
+# ------------------------------------------------------------------------------
+output/barcodes/*.png
+output/certificates/*.json
+
+# ------------------------------------------------------------------------------
+# PDF build artifacts (keep committed PDFs in docs/, ignore build temp files)
+# ------------------------------------------------------------------------------
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# ------------------------------------------------------------------------------
+# OS artifacts
+# ------------------------------------------------------------------------------
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.nfs*
+
+# ------------------------------------------------------------------------------
+# IDEs & editors
+# ------------------------------------------------------------------------------
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim / Neovim
+*.swp
+*.swo
+Session.vim
+
+# ------------------------------------------------------------------------------
+# Secrets & sensitive files — NEVER commit these
+# ------------------------------------------------------------------------------
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+private/
+
+# ------------------------------------------------------------------------------
+# Integrity manifest — regenerate with generate_hashes.py before each release
+# (commit intentionally when ready to publish a verified state)
+# ------------------------------------------------------------------------------
+# INTEGRITY_MANIFEST.json   ← uncomment to exclude from commits
+# INTEGRITY_REPORT.md       ← uncomment to exclude from commits
+
+# ------------------------------------------------------------------------------
+# Misc
+# ------------------------------------------------------------------------------
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+.cache/

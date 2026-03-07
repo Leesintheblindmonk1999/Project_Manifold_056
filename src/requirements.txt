@@ -1,0 +1,20 @@
+# --- Project Manifold 0.56 Core Dependencies ---
+
+# Numerical Computing
+numpy>=1.21.0
+scipy>=1.7.0
+
+# Topological Data Analysis (TDA)
+ripser>=0.6.1      # computing persistence diagrams
+persim>=0.3.1      # visualizing persistence and barcodes
+gudhi>=3.5.0       # advanced simplicial complexes
+
+# Geometry & Networks
+networkx>=2.6.0    # for graph-based manifold representations
+scikit-learn>=1.0  # for manifold learning and dimensionality reduction
+
+# Visualization
+matplotlib>=3.4.0
+
+# System & Utilities
+uuid               # for unique certification IDs
