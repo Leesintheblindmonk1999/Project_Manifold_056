@@ -1,0 +1,49 @@
+{
+  "manifest_type": "Project_Manifold_056_R1_documentation_context",
+  "generated_utc": "2026-06-08T17:24:05.751624+00:00",
+  "algorithm": "SHA-256",
+  "scope": "Documentation-only R1 contextualization package. This manifest intentionally excludes itself from the file list so it remains reproducible.",
+  "r0_preservation_note": "Do not modify or replace INTEGRITY_MANIFEST.json. Store this file as INTEGRITY_MANIFEST_R1.json in the repository root beside the R0 manifest.",
+  "zenodo_semantic_shield_record": "https://zenodo.org/records/18457687",
+  "recommended_r0_tag": "r0-manifold-056-2026-03-07",
+  "recommended_commit_message": "docs: contextualize Project Manifold 0.56 as historical κD prior-art snapshot",
+  "master_digest_method": "SHA256 over newline-joined '<sha256>  <path>' entries sorted by path",
+  "master_digest": "a16a937e941e52668eec78e08e2767f1a649d8773a6816002859353e65972a58",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "eebf6ab77f678d72eefddc072fe95f90a5dc123d7d61f7bc177cc4c5028f5be1",
+      "size_bytes": 17070
+    },
+    {
+      "path": "UPLOAD_INSTRUCTIONS.md",
+      "sha256": "acc9b2baacedc730dbb09c33f04a978cc449afb59a451434e5e6450e5dd2d9f6",
+      "size_bytes": 9304
+    },
+    {
+      "path": "docs/HISTORICAL_CONTEXT.md",
+      "sha256": "f2de0d40c59a5b8a8a5a71ab353164f2cc6431917c01ef85f9ba960193296b2d",
+      "size_bytes": 2546
+    },
+    {
+      "path": "docs/KAPPA_EQUIVALENCE_SEMANTIC_SHIELD.md",
+      "sha256": "1625e21016f9cb068de2cd966b35ce36948767eca6a7c2ece327b0e8f14ec344",
+      "size_bytes": 5964
+    },
+    {
+      "path": "docs/R0_INTEGRITY_NOTE.md",
+      "sha256": "de0d5ae9deade9e08b0038daefbe089999d93a05ab6a1e4100ac21d23425766d",
+      "size_bytes": 2523
+    },
+    {
+      "path": "docs/ROADMAP_EXTENSIONS.md",
+      "sha256": "694477729b68a3ab1473e9b37f3ce0141dc3ac3a7bd386498882290aeb591642",
+      "size_bytes": 4124
+    },
+    {
+      "path": "docs/TERMINOLOGY_ALIGNMENT.md",
+      "sha256": "ef09cdf53496a54fcd49815093fee717862e50444f0434d6025ca6e919b77738",
+      "size_bytes": 3466
+    }
+  ]
+}
