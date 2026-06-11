@@ -51,7 +51,105 @@ This expression is retained as part of the original conceptual language. It shou
 In production systems, actions such as flagging, blocking, escalation, or human review should be configured by policy. The historical “kill-switch” concept is preserved as an optional fail-safe pattern, not as a universal requirement.
 
 ---
+## R0 Infrastructure and Baseline Stability Audit — 2026-06-11
 
+A new R0 technical report and public artifact package have been released for the SAS/κD-0.56 research line.
+
+This audit validates the **infrastructure, reproducibility, stratified sampling, module-correlation behavior, minimal baseline tribunal selection, runtime logging, and error-analysis pipeline** under a `clean_strategy=self` control condition.
+
+It does **not** claim final production-grade SAS validation or R1 tribunal validation. The reported results should be interpreted as an R0 infrastructure and baseline-stability audit.
+
+### Zenodo Record
+
+* **Title:** *R0 Infrastructure and Baseline Stability Audit for SAS/κD-0.56: A Stratified Clean-Self Control Study over 152,525 Hallucination Pairs*
+* **Zenodo record:** https://zenodo.org/records/20647532
+* **Public artifact ZIP:** `public_r0_baseline_audit_20260611_clean.zip`
+* **Artifact SHA-256:**
+
+```text
+b1c4b2eddc7b887f8721f3f193b5d1263e4822f13efd08f8b20ae95389dd36fe
+```
+
+### Corpus Scale
+
+A local benchmark scan identified:
+
+```text
+152,525 complete A/B hallucination pairs
+305,050 generated clean-self records
+12 corpus/category strata
+```
+
+The public artifact intentionally excludes raw benchmark text JSONL files and generated source/response datasets. It includes scripts, manifests, aggregate metrics, correlation summaries, confusion matrices, findings, error-analysis outputs, and hashes.
+
+### Stratified R0 Runs
+
+| Run                | Records | Pairs/category |    Train/Test | Minimal module  | Minimal F1 | Full F1 |    Gap |
+| ------------------ | ------: | -------------: | ------------: | --------------- | ---------: | ------: | -----: |
+| sample_strat_2400  |   2,400 |            100 |   1,800 / 600 | `lexical_drift` |     0.9983 |  1.0000 | 0.0017 |
+| sample_strat_6000  |   6,000 |            250 | 4,500 / 1,500 | `lexical_drift` |     0.9987 |  1.0000 | 0.0013 |
+| sample_strat_12000 |  12,000 |            500 | 9,000 / 3,000 | `entity_drift`  |     0.9993 |  1.0000 | 0.0007 |
+
+Across increasing sample sizes, the baseline pipeline executed without runtime failures, maintained a stable module-correlation structure, and produced consistently low gaps between the selected minimal baseline tribunal and the full baseline pipeline.
+
+### Stable Correlation Structure
+
+Across the stratified runs, the correlation audit repeatedly found:
+
+```text
+Low-correlation pairs (< 0.60): 6
+High-correlation pairs (> 0.85): 3
+```
+
+This indicates that some baseline modules are highly redundant under the clean-self condition, especially lexical/entity drift signals, while other modules may retain specialized signal even if they do not dominate global F1.
+
+### Error Analysis
+
+The 12,000-record run produced:
+
+```text
+Precision: 1.0000
+Recall:    0.9987
+F1:        0.9993
+FP:        0
+FN:        2
+```
+
+The two false negatives were localized in:
+
+```text
+halueval_general/direct
+```
+
+### Methodological Boundary
+
+These results are intentionally reported as:
+
+```text
+R0 infrastructure and baseline-stability evidence
+```
+
+not as:
+
+```text
+final SAS production validation
+```
+
+The main limitation is `clean_strategy=self`, where clean controls are generated as:
+
+```text
+source = A_clean
+response = A_clean
+```
+
+This may inflate performance for dissimilarity-based modules. Future R1-oriented validation requires:
+
+1. connecting real SAS modules to the R0 pipeline;
+2. repeating the stratified protocol with SAS modules;
+3. using independent clean negatives through `clean_strategy=external`;
+4. evaluating the R1 multimetric tribunal under stronger ground-truth conditions.
+
+---
 ## Semantic Shielding Annex
 
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
