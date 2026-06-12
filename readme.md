@@ -150,6 +150,82 @@ This may inflate performance for dissimilarity-based modules. Future R1-oriented
 4. evaluating the R1 multimetric tribunal under stronger ground-truth conditions.
 
 ---
+## R0-bis Nonlinear Dependence and Redundancy Audit — 2026-06-12
+
+A new R0-bis technical paper and supporting artifact set have been added to the Project Manifold / SAS κD-0.56 research line.
+
+R0-bis extends the R0 infrastructure audit by testing whether baseline drift modules can be treated as independent evidence votes, or whether they form correlated clusters that would inflate confidence if counted independently.
+
+This audit is a **clean-self baseline dependence and redundancy study**. It does **not** claim final SAS/R1 validation, production-grade hallucination detection, or universal sufficiency of `lexical_drift`.
+
+### R0-bis Artifact Locations
+
+| Repository path | Role | SHA-256 |
+|---|---|---|
+| `docs/en/papers/SAS_R0_Bis_Nonlinear_Dependence_Paper_v1_0_6_polished_package.zip` | Final polished paper package: PDF, DOCX, Markdown, audit prompt, changelog | `1a3a59da3edc66cce9ab38687e38f9a677edded5f0440f5145aa5a2efcf482c8` |
+| `docs/en/reports/sas_r0_bis_technical_report_package_v1_0_4_report_only.zip` | Corrected technical report package, tables, manifests, SHA256SUMS | `4438117968d4568279f8859e3a46b8f943367e91518f06f3b2084eac940fb8f0` |
+| `docs/en/outputs/sas_r0_bis_v1_0_2_outputs_20260611_191232.zip` | Frozen executed R0-bis outputs for 2.4k / 6k / 12k runs | `f1f27baab03dd848214070bcc5deb0ce2f8881f1879ec7ace3d8743482f5c3b2` |
+
+### R0-bis Execution Summary
+
+The frozen R0-bis outputs record successful execution of:
+
+```text
+sample_size = all
+seed = 42
+require_dcor = true
+script_version = 1.0.2
+```
+
+Three stratified balanced clean-self samples were evaluated:
+
+| Run | Records | Train/Test | Selected minimal representative | Selected test F1 | Full baseline test F1 |
+|---|---:|---:|---|---:|---:|
+| sample_strat_2400 | 2,400 | 1,800 / 600 | `lexical_drift` | 1.000000 | 1.000000 |
+| sample_strat_6000 | 6,000 | 4,500 / 1,500 | `lexical_drift` | 0.999333 | 0.999333 |
+| sample_strat_12000 | 12,000 | 9,000 / 3,000 | `lexical_drift` | 1.000000 | 0.999667 |
+
+At 12k, the selected minimal tribunal differed from the full baseline by one false negative over 3,000 held-out records. This should not be overclaimed as meaningful superiority; it indicates that the full redundant baseline did not provide a material held-out advantage under clean-self controls.
+
+### R0-bis Dependence Findings
+
+Across 15 module pairs, R0-bis found stable linear redundancy and additional nonlinear dependence:
+
+| Sample | independent | partial_dependence | redundant_linear | nonlinear_dependence | borderline_dependence |
+|---:|---:|---:|---:|---:|---:|
+| 2,400 | 6 | 5 | 3 | 1 | 0 |
+| 6,000 | 6 | 4 | 3 | 2 | 0 |
+| 12,000 | 5 | 4 | 3 | 2 | 1 |
+
+The main methodological conclusion is:
+
+```text
+R1 must treat correlated modules as evidence clusters rather than independent votes.
+```
+
+In particular, `entity_drift` and `length_delta` must not be counted as independent votes alongside `lexical_drift`, because they form a linear-redundant cluster with it.
+
+### Methodological Boundary
+
+R0-bis uses `clean_strategy=self`:
+
+```text
+source = A_clean
+response = A_clean
+```
+
+This can inflate drift-sensitive modules. The next required stage is R0.5 external-clean testing:
+
+```text
+source = A_clean
+response = C_clean_equivalent
+label = 0
+```
+
+The external-clean response must be generated from `A_clean` only. `B_hallucination` must remain quarantined from generation and may only be used later as a contamination-audit antigen.
+
+---
+
 ## Semantic Shielding Annex
 
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
@@ -377,6 +453,10 @@ Project_Manifold_056/
 │   ├── ROADMAP_EXTENSIONS.md
 │   ├── R0_INTEGRITY_NOTE.md
 │   ├── en/
+│   │   ├── outputs/
+│   │   ├── papers/
+│   │   ├── reports/
+│   │   └── *.pdf
 │   └── es/
 │
 ├── data/
@@ -471,7 +551,7 @@ Registration: EX-2026-18792778- -APN-DGDYD#JGM
 
 The complete machine-readable R0 manifest remains available at `INTEGRITY_MANIFEST.json`.
 
-The contextualized R1 manifest should be stored as `INTEGRITY_MANIFEST_R1.json` in the repository root, next to the R0 manifest.
+The contextualized documentation manifest is stored as `INTEGRITY_MANIFEST_R1.json` in the repository root, next to the R0 manifest. Despite the filename, it is a documentation-context manifest for R0/R0-bis/R1 preparation and must not be read as final R1 validation.
 
 ---
 
