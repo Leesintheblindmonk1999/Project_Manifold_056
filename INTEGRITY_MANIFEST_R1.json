@@ -1,19 +1,43 @@
 {
-  "manifest_type": "Project_Manifold_056_R1_documentation_context",
-  "generated_utc": "2026-06-08T17:24:05.751624+00:00",
+  "manifest_type": "Project_Manifold_056_R0_R0bis_R1_documentation_context",
+  "generated_utc": "2026-06-12T00:00:00+00:00",
   "algorithm": "SHA-256",
-  "scope": "Documentation-only R1 contextualization package. This manifest intentionally excludes itself from the file list so it remains reproducible.",
-  "r0_preservation_note": "Do not modify or replace INTEGRITY_MANIFEST.json. Store this file as INTEGRITY_MANIFEST_R1.json in the repository root beside the R0 manifest.",
-  "zenodo_semantic_shield_record": "https://zenodo.org/records/18457687",
-  "recommended_r0_tag": "r0-manifold-056-2026-03-07",
-  "recommended_commit_message": "docs: contextualize Project Manifold 0.56 as historical κD prior-art snapshot",
+  "scope": "Documentation and artifact-context manifest for Project Manifold 0.56. This manifest preserves the R0 historical manifest separately and adds R0-bis paper/report/output artifacts as contextual evidence. It intentionally excludes itself from the file list so it remains reproducible.",
+  "r0_preservation_note": "Do not modify or replace INTEGRITY_MANIFEST.json. Store this file as INTEGRITY_MANIFEST_R1.json in the repository root beside the R0 manifest. The R1 filename denotes documentation-context preparation, not final R1 validation.",
+  "recommended_commit_message": "docs: add R0-bis paper, report and frozen output artifacts",
+  "recommended_tag": "r0-bis-manifold-056-2026-06-12",
   "master_digest_method": "SHA256 over newline-joined '<sha256>  <path>' entries sorted by path",
-  "master_digest": "a16a937e941e52668eec78e08e2767f1a649d8773a6816002859353e65972a58",
+  "master_digest": "55a6b3c86fd8488f85bc0adfb2797be8ece6190b3034487abef80ea7227ccd2e",
+  "related_records": {
+    "r0_infrastructure_audit": "https://zenodo.org/records/20647532",
+    "semantic_shielding_annex": "https://zenodo.org/records/18457687",
+    "historical_project_record": "https://zenodo.org/records/18664548",
+    "r0_bis_record": "pending"
+  },
+  "historical_r0_manifest": {
+    "file": "INTEGRITY_MANIFEST.json",
+    "generated_at": "2026-03-07T12:02:30.161343+00:00",
+    "master_digest": "b8fbe7c0e334fd483634c16c87a8b2cff77debc118b35b115d89d25e04f45e1b",
+    "total_files": 31,
+    "registration": "EX-2026-18792778- -APN-DGDYD#JGM"
+  },
+  "previous_context_manifest": {
+    "file": "INTEGRITY_MANIFEST_R1.json",
+    "generated_utc": "2026-06-08T17:24:05.751624+00:00",
+    "master_digest": "a16a937e941e52668eec78e08e2767f1a649d8773a6816002859353e65972a58"
+  },
+  "r0_bis_artifacts": {
+    "paper_package": "docs/en/papers/SAS_R0_Bis_Nonlinear_Dependence_Paper_v1_0_6_polished_package.zip",
+    "technical_report_package": "docs/en/reports/sas_r0_bis_technical_report_package_v1_0_4_report_only.zip",
+    "frozen_outputs_package": "docs/en/outputs/sas_r0_bis_v1_0_2_outputs_20260611_191232.zip",
+    "methodological_status": "R0-bis nonlinear dependence and redundancy audit under clean_strategy=self; not final SAS/R1 validation and not production-grade hallucination detection."
+  },
   "files": [
     {
       "path": "README.md",
-      "sha256": "eebf6ab77f678d72eefddc072fe95f90a5dc123d7d61f7bc177cc4c5028f5be1",
-      "size_bytes": 17070
+      "sha256": "bf0e49c879a14fee70238fbffd1bef1fec56c22faa405fa86658855b2c27c195",
+      "size_bytes": 24401,
+      "description": "Repository README updated with R0-bis artifact locations, hashes, and methodological limits."
     },
     {
       "path": "UPLOAD_INSTRUCTIONS.md",
@@ -44,6 +68,24 @@
       "path": "docs/TERMINOLOGY_ALIGNMENT.md",
       "sha256": "ef09cdf53496a54fcd49815093fee717862e50444f0434d6025ca6e919b77738",
       "size_bytes": 3466
+    },
+    {
+      "path": "docs/en/outputs/sas_r0_bis_v1_0_2_outputs_20260611_191232.zip",
+      "sha256": "f1f27baab03dd848214070bcc5deb0ce2f8881f1879ec7ace3d8743482f5c3b2",
+      "size_bytes": 1625883,
+      "description": "Frozen executed R0-bis outputs."
+    },
+    {
+      "path": "docs/en/papers/SAS_R0_Bis_Nonlinear_Dependence_Paper_v1_0_6_polished_package.zip",
+      "sha256": "1a3a59da3edc66cce9ab38687e38f9a677edded5f0440f5145aa5a2efcf482c8",
+      "size_bytes": 141841,
+      "description": "R0-bis final polished paper package."
+    },
+    {
+      "path": "docs/en/reports/sas_r0_bis_technical_report_package_v1_0_4_report_only.zip",
+      "sha256": "4438117968d4568279f8859e3a46b8f943367e91518f06f3b2084eac940fb8f0",
+      "size_bytes": 3304674,
+      "description": "R0-bis corrected technical report package."
     }
   ]
 }
