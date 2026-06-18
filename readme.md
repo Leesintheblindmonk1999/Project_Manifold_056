@@ -253,9 +253,9 @@ This finding is methodologically important: category names alone were insufficie
 
 | Repository path | Role | Integrity note |
 |---|---|---|
-| `docs/outputs/r05p1/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip` | Frozen run package containing run artifacts from v0.1.9 through v0.2.3, including manifests, stdout/stderr logs, verification reports, accepted `C_clean` outputs, rejected-candidate diagnostics, and the main-1200 rejection analysis. | SHA-256 should be read from the accompanying `.zip.sha256.txt` file. |
-| `docs/outputs/r05p1/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip.sha256.txt` | SHA-256 digest for the public output package. | Used for reproducibility and Zenodo/GitHub integrity anchoring. |
-
+| `docs/outputs/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip` | Frozen run package containing run artifacts from v0.1.9 through v0.2.3, including manifests, stdout/stderr logs, verification reports, accepted `C_clean` outputs, rejected-candidate diagnostics, and the main-1200 rejection analysis. | SHA-256 should be read from the accompanying `.zip.sha256.txt` file. |
+| `docs/outputs/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip.sha256.txt` | SHA-256 digest for the public output package. | Used for reproducibility and Zenodo/GitHub integrity anchoring. |
+| Corrected technical report package, tables, manifests, SHA256SUMS | `9b40a622b26d0f1603cd332863a38bb54c2c9d58ae54bdef5a1195114c80d7f8` |
 A Zenodo record should be linked here after manual publication.
 
 ### R0.5P-1 Execution Summary
