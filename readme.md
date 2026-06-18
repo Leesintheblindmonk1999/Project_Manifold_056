@@ -226,6 +226,154 @@ The external-clean response must be generated from `A_clean` only. `B_hallucinat
 
 ---
 
+
+## R0.5P-1 External-Clean Historical Query Paraphrase Audit — 2026-06-18
+
+R0.5P-1 is the first validated external-clean track in the R0.5 program. It tests whether prompt-like historical-query sources can be converted into independently generated `C_clean` equivalents under a track-conditioned prompt-paraphrase protocol.
+
+This section documents **R0.5P-1 only**. It does **not** claim completion of R0.5 across QA, dialogue, summarization, code, numerical, biography, reference, or reasoning domains.
+
+### Why R0.5P-1 is Track-Conditioned
+
+During preflight and manual inspection, `halogen/historical_events` was found to contain prompt-like requests such as:
+
+```text
+Tell me about the famous meeting between X and Y.
+```
+
+Therefore, the correct external-clean target for this track is **not** a factual answer to the prompt. The correct target is a source-equivalent request paraphrase, for example:
+
+```text
+Describe the famous meeting between X and Y.
+```
+
+This finding is methodologically important: category names alone were insufficient for assigning R0.5 methodology. The actual `A_clean` surface form had to be inspected before assigning each category to factual prose, prompt paraphrase, QA, dialogue, summarization, reasoning, or code/numerical tracks.
+
+### R0.5P-1 Artifact Location
+
+| Repository path | Role | Integrity note |
+|---|---|---|
+| `docs/outputs/r05p1/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip` | Frozen run package containing run artifacts from v0.1.9 through v0.2.3, including manifests, stdout/stderr logs, verification reports, accepted `C_clean` outputs, rejected-candidate diagnostics, and the main-1200 rejection analysis. | SHA-256 should be read from the accompanying `.zip.sha256.txt` file. |
+| `docs/outputs/r05p1/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip.sha256.txt` | SHA-256 digest for the public output package. | Used for reproducibility and Zenodo/GitHub integrity anchoring. |
+
+A Zenodo record should be linked here after manual publication.
+
+### R0.5P-1 Execution Summary
+
+The final main-scale run used:
+
+```text
+track = prompt_paraphrase
+category = halogen/historical_events
+script_version = v0.2.3
+sample = 1200
+seed = 42
+mojibake / encoding-artifact preflight exclusion = enabled
+```
+
+Preflight summary:
+
+```text
+Raw A_clean files discovered:       21,008
+Eligible A_clean files after filter: 18,964
+Skipped by preflight:                2,044
+  mojibake_or_encoding_artifact:     1,232
+  source_too_short_or_underspecified: 812
+```
+
+Generation summary:
+
+```text
+Total selected:   1,200
+Accepted:         1,197
+Rejected:             3
+Runtime errors:       0
+```
+
+Verification summary:
+
+```text
+A files found:       1,200
+C files found:       1,197
+Missing C:               3
+Accepted:            1,197
+Rejected:                0
+Acceptance rate over generated C files: 1.0
+```
+
+Final interpretation:
+
+```text
+1197 / 1200 = 99.75% accepted generation
+1197 / 1197 = 100% verification pass over exported C_clean files
+3 / 1200 = 0.25% rejected candidates
+```
+
+### Main-1200 Rejection Analysis
+
+The three rejected cases were manually inspected:
+
+```text
+halogen/historical_events/19064_A_clean.txt
+halogen/historical_events/5702_A_clean.txt
+halogen/historical_events/7164_A_clean.txt
+```
+
+They were classified as malformed model generations, not verifier false positives. The rejected outputs contained patterns such as:
+
+- token or substring corruption;
+- duplicated spans;
+- malformed entity rendering;
+- mojibake-like artifacts;
+- prompt-boundary leakage such as `Human:`.
+
+These candidates were correctly rejected and were not exported as accepted `C_clean` files.
+
+### v0.1.9 → v0.2.3 Development Trail
+
+R0.5P-1 was not treated as a single black-box run. It was built through a documented calibration path:
+
+| Version | Role in R0.5P-1 development |
+|---|---|
+| v0.1.9 | Pre-R0.5P-1 external-clean baseline scripts and early verifier logic. |
+| v0.2.0 | Multi-audit hardening; fixed sentence-boundary entity extraction, manifest sanitization, stronger preflight behavior, and stricter verifier boundaries. Failed prompt-like smoke because the track prompt was still too generic. |
+| v0.2.1 | Introduced `--track prompt_paraphrase`, request-to-request generation, and track-specific verification. Passed smoke-3, alpha-20, and beta-100 except for one encoding-related rejection. |
+| v0.2.2 | Added mojibake/encoding artifact preflight filtering. Passed beta-250 with high stability; exposed two verifier false positives related to weak B-only contamination matching. |
+| v0.2.3 | Patched weak single-token B-only contamination false positives while preserving strict entity and number/date safeguards. Passed beta-500 perfectly and produced the main-1200 result reported here. |
+
+### R0.5 Track Taxonomy and Deferred Domains
+
+R0.5 is a multi-track external-clean program. R0.5P-1 validates only the first prompt-paraphrase track.
+
+| Track family | Domain / category examples | Current status |
+|---|---|---|
+| R0.5P — Prompt / Query Paraphrase | `halogen/historical_events` | **Validated as R0.5P-1** |
+| R0.5P — Other prompt-like sources | `halogen/biographies`, `halogen/references`, other prompt-style categories after source-form inspection | Deferred |
+| R0.5Q — QA Source Paraphrase | TruthfulQA / HaluEval-style QA categories | Deferred |
+| R0.5D — Dialogue Grounded Response | dialogue-style source/response categories | Deferred |
+| R0.5S — Summarization / Long Context | summarization-style categories | Deferred |
+| R0.5R — Reasoning / Rationalization | rationalization and solver-style categories | Deferred |
+| R0.5N — Numerical / Code / Structured Tasks | numerical false-presupposition, code, mapping, and structured task categories | Deferred |
+
+### R0.5P-1 Methodological Boundary
+
+R0.5P-1 demonstrates stable generation and verification of prompt-paraphrase `C_clean` outputs for one inspected historical-query track. It does not establish final robustness across all external-clean domains.
+
+The core quarantine rule remains:
+
+```text
+C_clean generation input: A_clean only
+B_hallucination: quarantined from generation
+B_hallucination use: later contamination-audit antigen only
+```
+
+The correct public claim is:
+
+```text
+This record reports R0.5P-1, the first validated prompt-paraphrase track in the R0.5 external-clean program. It does not claim completion of R0.5 across QA, dialogue, summarization, code, numerical, biography, reference, or reasoning tracks.
+```
+
+---
 ## Semantic Shielding Annex
 
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
@@ -566,13 +714,66 @@ The following items are documented as planned or external extensions to the SAS 
 
 These extensions belong primarily in the active SAS repository. Project Manifold 0.56 should reference them as evolution of the standard, not absorb active development.
 
+### Current Research Progression
+
+The current SAS / Project Manifold research sequence is:
+
+```text
+R0      = infrastructure and baseline stability under clean-self controls
+R0-bis  = nonlinear dependence and redundancy audit among baseline modules
+R0.5P-1 = first external-clean prompt-paraphrase track over historical query sources
+R0.5-N  = remaining external-clean tracks, still deferred by domain
+R1      = nonredundant multimetric SAS tribunal with real SAS modules
+```
+
+### Immediate Next Steps After R0.5P-1
+
+1. Publish the R0.5P-1 output package with SHA-256 integrity metadata.
+2. Link the Zenodo record once the manual upload is complete.
+3. Preserve `MAIN1200_REJECTION_ANALYSIS.md` as part of the public trace.
+4. Add or update an integrity manifest for the contextual documentation layer.
+5. Continue R0.5 with separate track-conditioned protocols rather than a universal prompt.
+
+### R0.5 Deferred Track Roadmap
+
+R0.5 must remain track-conditioned. The next tracks should be opened only after inspecting the true `A_clean` source form of each category.
+
+| Priority | Track | Requirement before execution |
+|---:|---|---|
+| 1 | R0.5P-2 prompt-like biographies / references | Confirm whether the source asks for a bio/reference list, asks a factual question, or contains declarative prose. |
+| 2 | R0.5Q QA | Define whether `C_clean` should paraphrase the question, answer the question, or preserve a source/target mapping. |
+| 3 | R0.5D dialogue | Define turn-level grounding and avoid using hallucinated B responses as generation context. |
+| 4 | R0.5S summarization | Define source length, compression ratio, and factual preservation rules. |
+| 5 | R0.5R reasoning / rationalization | Expand promptlike detection, preserve task variables, and prevent solver leakage. |
+| 6 | R0.5N numerical / code | Add strict number/date/code-invariant preservation and syntax-specific checks. |
+
+### R1 Preparation
+
+R1 should not count correlated baseline modules as independent votes. R0-bis showed that redundant signals must be clustered before voting. R1 should integrate real SAS modules and evidence classes such as:
+
+- `source_target_guard_score`;
+- TDA / topological coherence scores;
+- NIG / graph-structure signals;
+- E9 contradiction detection;
+- E10 grounding consistency;
+- E11 temporal consistency;
+- E12 topic-shift detection;
+- flow-coherence / structural-flow metrics;
+- kappa-equivalence scanning;
+- module observability and evidence bundles;
+- a certification endpoint for hashable audit records.
+
+The R1 tribunal should report evidence clusters, module dependencies, and failure categories rather than presenting every signal as an independent vote.
+
 ---
 
 ## Spanish Summary / Resumen en español
 
 **Project Manifold 0.56** se preserva como snapshot histórico y técnico del estándar κD = 0.56. Este repositorio registra la arquitectura temprana de seis fases, el pipeline TDA + Ricci-inspired + simplicial, el concepto inicial de OSS, el manifiesto SHA-256 y la trazabilidad legal/documental asociada.
 
-La actualización documental R1 no cambia el valor histórico de R0. Su función es aclarar la terminología: las metáforas físicas se conservan como lenguaje conceptual de diseño temprano, no como afirmaciones físicas formales. El desarrollo activo del estándar continúa en SAS.
+Las actualizaciones documentales posteriores no cambian el valor histórico de R0. Su función es aclarar la terminología, enlazar R0/R0-bis/R0.5P-1 con el desarrollo activo de SAS, y preservar la trazabilidad metodológica. R0.5P-1 agrega el primer track external-clean validado: parafraseo de consultas históricas sobre `halogen/historical_events`, con 1197/1200 generaciones aceptadas, 1197/1197 verificadas y tres rechazos documentados como generaciones malformadas.
+
+Las metáforas físicas se conservan como lenguaje conceptual de diseño temprano, no como afirmaciones físicas formales. El desarrollo activo del estándar continúa en SAS.
 
 ---
 
