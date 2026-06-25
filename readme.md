@@ -926,6 +926,9 @@ Las actualizaciones documentales posteriores no cambian el valor histórico de R
 
 Las metáforas físicas se conservan como lenguaje conceptual de diseño temprano, no como afirmaciones físicas formales. El desarrollo activo del estándar continúa en SAS.
 
+R0.5P-2A agrega un segundo track external-clean validado: parafraseo de instrucciones de falsa presuposición numérica sobre `halogen/numerical_falsepresupposition`, con 1152/1200 generaciones aceptadas, 48 rechazos filtrados, 0 errores y control explícito de invariantes numéricos y contaminación desde `B_hallucination`.
+
+
 ---
 
 © 2026 Gonzalo Emir Durante. Historical documentation update for traceability and methodological alignment.
