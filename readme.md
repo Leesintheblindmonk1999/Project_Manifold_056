@@ -374,6 +374,148 @@ This record reports R0.5P-1, the first validated prompt-paraphrase track in the 
 ```
 
 ---
+
+## R0.5P-2A External-Clean Numerical False-Presupposition Instruction-Paraphrase Audit — 2026-06-24
+
+R0.5P-2A extends the external-clean program from historical-query paraphrases into an instruction-shaped numerical false-presupposition track.
+
+The tested category is:
+
+```text
+halogen/numerical_falsepresupposition
+```
+
+This track is methodologically different from R0.5P-1. The source prompts often ask for impossible or false numerical lists, for example requests to list `1`, `6`, `7`, or more items satisfying constraints that may not be satisfiable. The correct external-clean target is not an answer to the task. The correct target is an equivalent instruction paraphrase that preserves numbers, letters, requested item types, separators, output-only constraints, and fallback behavior.
+
+This audit demonstrates that the external-clean pipeline can scale to a 1,200-sample numerical false-presupposition instruction-paraphrase run while preserving strict invariant and contamination filters.
+
+### R0.5P-2A Artifact Locations
+
+| Repository path                                                                                           | Role                                                                                                                                                                                                                            | SHA-256                                                            |
+| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `docs/en/outputs/SAS_R0_5P2A_Numerical_False_Presupposition_Instruction_Paraphrase_v1_0_0.zip`            | Final R0.5P-2A artifact package containing frozen scripts, run manifests, stdout logs, accepted outputs, rejected-candidate diagnostics, internal SHA256SUMS, methodology notes, patch notes, limitations, and results summary. | `3FF7ADFCB8A4FBFB41E35DBFD58F497D0D998C3693959E47F93B7C145F8C8193` |
+| `docs/en/outputs/SAS_R0_5P2A_Numerical_False_Presupposition_Instruction_Paraphrase_v1_0_0.zip.sha256.txt` | SHA-256 digest for the final R0.5P-2A artifact package.                                                                                                                                                                         | Digest file for the ZIP above.                                     |
+| `docs/en/outputs/r05_external_clean_scripts_v0_2_5_patch12345_R05P2A.zip`                                 | Frozen script package for the R0.5P-2A local patch state: v0.2.5 + PATCH-1/2/3/4/5.                                                                                                                                             | `D04AD55C930C3A7F0F9AB85B5E3E050E8319C3303B4C56DF3810C92A0E2B5FF4` |
+| `docs/en/outputs/r05_external_clean_scripts_v0_2_5_patch12345_R05P2A.zip.sha256.txt`                      | SHA-256 digest for the frozen script package.                                                                                                                                                                                   | Digest file for the script ZIP above.                              |
+| `PUBLICATION_STATUS_R05P2A.md`                                                                            | Repository-root publication status note for R0.5P-2A, including artifact names, SHA-256 hashes, main result, and methodological boundary.                                                                                       | Human-readable publication status.                                 |
+
+A Zenodo record should be linked here after manual publication.
+
+### R0.5P-2A Execution Summary
+
+The final main-scale run used:
+
+```text
+track = prompt_paraphrase / instruction-paraphrase
+category = halogen/numerical_falsepresupposition
+script_base = r05_external_clean_scripts_v0_2_5
+local_patch_state = PATCH-1/2/3/4/5
+model = anthropic/claude-3-haiku via OpenRouter
+sample = 1200
+primary_temperature = 0.25
+fallback_temperature = 0.35
+mojibake / encoding-artifact preflight exclusion = enabled
+skip_short_source_chars = 40
+skip_short_source_words = 5
+```
+
+Preflight summary:
+
+```text
+Raw A_clean files discovered:          156,217
+Eligible A_clean files after filter:    15,168
+Skipped by preflight:                  141,049
+```
+
+Main generation summary:
+
+```text
+Total selected:   1,200
+Accepted:         1,152
+Rejected:            48
+Runtime errors:       0
+```
+
+Retry summary:
+
+```text
+First-attempt accepted: 1,054 / 1,200 = 87.83%
+Retry attempted:         146
+Retry accepted:           98
+Retry failed:             48
+Final accepted:        1,152 / 1,200 = 96.0%
+```
+
+Final rejected-reason summary:
+
+```text
+external_clean_too_short:          31
+external_clean_too_close_to_self:  14
+numbers_or_dates_changed:           4
+external_clean_too_far:             1
+b_only_contamination:               1
+```
+
+Final rejection-taxonomy summary:
+
+```text
+length_violation:          31
+lexical_distance_violation: 15
+invariant_violation:        4
+contamination:              1
+```
+
+Because some rejected records can carry more than one reason, reason counts may exceed the number of rejected records.
+
+### Critical Inspection
+
+The critical rejected cases were manually inspected. In all inspected cases, the verifier rejected the candidate before export.
+
+Examples included:
+
+```text
+halogen/numerical_falsepresupposition/10719_A_clean.txt
+halogen/numerical_falsepresupposition/3142_A_clean.txt
+halogen/numerical_falsepresupposition/5302_A_clean.txt
+halogen/numerical_falsepresupposition/7451_A_clean.txt
+```
+
+The critical failures were real failures, not accepted contamination:
+
+* candidates changed the requested number from `1` to `7`;
+* one candidate copied a B-only numerical invariant from the hallucinated answer context;
+* over-compressed candidates omitted required output-only or fallback constraints;
+* near-identical candidates were rejected as too close to the source.
+
+The accepted set therefore remained protected by the invariant and contamination filters.
+
+### R0.5P-2A Patch Trail
+
+R0.5P-2A used the frozen local script state:
+
+```text
+r05_external_clean_scripts_v0_2_5 + PATCH-1/2/3/4/5
+```
+
+| Patch       | Role                                                                                                                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PATCH-1/2/3 | Hardened the generation prompt to preserve numbers, dates, quantities, letters, requested item types, separators, output-only constraints, and fallback `no response` behavior. |
+| PATCH-4     | Adapted the verifier for instruction-paraphrase request shape, including `generate` / `produce` request-like patterns and conditional fallback handling.                        |
+| PATCH-5     | Fixed numeric-boundary behavior in B-only contamination checks, preventing weak substring false positives such as `4` matching inside `44`.                                     |
+| PATCH-6     | Tested and reverted because it caused over-paraphrasing and track-shape failures. It is not included in the frozen package.                                                     |
+
+### R0.5P-2A Methodological Boundary
+
+R0.5P-2A is an external-clean generation and verifier-calibration artifact. It does not claim final production hallucination-detection validation, universal SAS validation, or benchmark superiority over other systems.
+
+The correct public claim is:
+
+```text
+This record reports R0.5P-2A, a validated numerical false-presupposition instruction-paraphrase external-clean track. It demonstrates scalable generation, strict invariant preservation, contamination filtering, and traceable rejection diagnostics for one inspected numerical false-presupposition category. It does not claim completion of R0.5 across QA, dialogue, summarization, code, biography, reference, or reasoning tracks.
+```
+
+
+---
 ## Semantic Shielding Annex
 
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
@@ -719,18 +861,24 @@ These extensions belong primarily in the active SAS repository. Project Manifold
 The current SAS / Project Manifold research sequence is:
 
 ```text
-R0      = infrastructure and baseline stability under clean-self controls
-R0-bis  = nonlinear dependence and redundancy audit among baseline modules
-R0.5P-1 = first external-clean prompt-paraphrase track over historical query sources
-R0.5-N  = remaining external-clean tracks, still deferred by domain
-R1      = nonredundant multimetric SAS tribunal with real SAS modules
+
+R0        = infrastructure and baseline stability under clean-self controls
+R0-bis    = nonlinear dependence and redundancy audit among baseline modules
+R0.5P-1   = first external-clean prompt-paraphrase track over historical query sources
+R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
+R0.5-N/Q/D/S/R = remaining external-clean tracks, still deferred by domain
+R1        = nonredundant multimetric SAS tribunal with real SAS modules
 ```
 
-### Immediate Next Steps After R0.5P-1
+R0.5P-2A should be read as a second validated external-clean track, not as completion of the full R0.5 program.
 
-1. Publish the R0.5P-1 output package with SHA-256 integrity metadata.
+---
+
+### Immediate Next Steps After R0.5P-2A
+
+1. Publish the R0.5P-2A package with SHA-256 integrity metadata.
 2. Link the Zenodo record once the manual upload is complete.
-3. Preserve `MAIN1200_REJECTION_ANALYSIS.md` as part of the public trace.
+3. Preserve `PUBLICATION_STATUS_R05P2A.md` as the repository-root status note.
 4. Add or update an integrity manifest for the contextual documentation layer.
 5. Continue R0.5 with separate track-conditioned protocols rather than a universal prompt.
 
@@ -738,14 +886,17 @@ R1      = nonredundant multimetric SAS tribunal with real SAS modules
 
 R0.5 must remain track-conditioned. The next tracks should be opened only after inspecting the true `A_clean` source form of each category.
 
-| Priority | Track | Requirement before execution |
-|---:|---|---|
-| 1 | R0.5P-2 prompt-like biographies / references | Confirm whether the source asks for a bio/reference list, asks a factual question, or contains declarative prose. |
-| 2 | R0.5Q QA | Define whether `C_clean` should paraphrase the question, answer the question, or preserve a source/target mapping. |
-| 3 | R0.5D dialogue | Define turn-level grounding and avoid using hallucinated B responses as generation context. |
-| 4 | R0.5S summarization | Define source length, compression ratio, and factual preservation rules. |
-| 5 | R0.5R reasoning / rationalization | Expand promptlike detection, preserve task variables, and prevent solver leakage. |
-| 6 | R0.5N numerical / code | Add strict number/date/code-invariant preservation and syntax-specific checks. |
+|  Priority | Track                                                          | Requirement before execution                                                                                             |
+| --------: | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Completed | R0.5P-1 historical query paraphrase                            | Published as the first validated prompt-paraphrase external-clean track over `halogen/historical_events`.                |
+| Completed | R0.5P-2A numerical false-presupposition instruction paraphrase | Published as a validated instruction-paraphrase external-clean track over `halogen/numerical_falsepresupposition`.       |
+|         1 | R0.5P prompt-like biographies / references                     | Confirm whether the source asks for a bio/reference list, asks a factual question, or contains declarative prose.        |
+|         2 | R0.5Q QA                                                       | Define whether `C_clean` should paraphrase the question, answer the question, or preserve a source/target mapping.       |
+|         3 | R0.5D dialogue                                                 | Define turn-level grounding and avoid using hallucinated B responses as generation context.                              |
+|         4 | R0.5S summarization                                            | Define source length, compression ratio, and factual preservation rules.                                                 |
+|         5 | R0.5R reasoning / rationalization                              | Expand promptlike detection, preserve task variables, and prevent solver leakage.                                        |
+|         6 | R0.5N remaining numerical / code / structured tasks            | Extend strict number/date/code-invariant preservation and syntax-specific checks beyond the completed R0.5P-2A category. |
+
 
 ### R1 Preparation
 
