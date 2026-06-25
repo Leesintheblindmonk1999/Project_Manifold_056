@@ -2,6 +2,12 @@
 
 > Historical research snapshot for κD = 0.56, structural coherence auditing, and the early Manifold pipeline.
 
+[![SAS Standard DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19702379-blue)](https://doi.org/10.5281/zenodo.19702379)
+[![R0 Audit](https://img.shields.io/badge/R0-Zenodo%2020647532-blue)](https://doi.org/10.5281/zenodo.20647532)
+[![R0--bis](https://img.shields.io/badge/R0--bis-Zenodo%2020671824-blue)](https://doi.org/10.5281/zenodo.20671824)
+[![R0.5P--1](https://img.shields.io/badge/R0.5P--1-Zenodo%2020742205-blue)](https://doi.org/10.5281/zenodo.20742205)
+[![R0.5P--2A](https://img.shields.io/badge/R0.5P--2A-Zenodo%2020838365-blue)](https://zenodo.org/records/20838365)
+
 ---
 
 ## Historical Status
@@ -17,6 +23,49 @@ This repository is **not** the active production implementation of SAS. Current 
 - https://sas-api.onrender.com
 
 The original source code and integrity artifacts are preserved for traceability and prior-art documentation. Later documentation updates should be treated as contextualization layers, not as changes to the historical R0 claim.
+
+---
+
+## Documentation & Prior-Art Trail
+
+The following records document the SAS / Project Manifold κD-0.56 research line, from the original SAS standard to the R0/R0-bis/R0.5 external-clean validation sequence.
+
+### Zenodo / DOI Records
+
+| Layer | Record | Link |
+|---|---|---|
+| SAS standard | Main SAS standard DOI | https://doi.org/10.5281/zenodo.19702379 |
+| κD semantic shielding | Semantic shielding annex for κD equivalence and representation robustness | https://doi.org/10.5281/zenodo.18457687 |
+| Interaction model | Stochastic interaction / hidden-state uncertainty paper | https://doi.org/10.5281/zenodo.20335612 |
+| R0 | Infrastructure and baseline stability audit | https://doi.org/10.5281/zenodo.20647532 |
+| R0-bis | Nonlinear dependence and redundancy audit | https://doi.org/10.5281/zenodo.20671824 |
+| R0.5P-1 | Historical-query external-clean prompt-paraphrase audit | https://doi.org/10.5281/zenodo.20742205 |
+| R0.5P-2A | Numerical false-presupposition instruction-paraphrase external-clean audit | https://zenodo.org/records/20838365 |
+
+### Repositories and Public Endpoints
+
+| Resource | Role | Link |
+|---|---|---|
+| Project Manifold 0.56 | Historical κD prior-art snapshot and research artifact repository | https://github.com/Leesintheblindmonk1999/Project_Manifold_056 |
+| SAS | Active implementation repository for the current SAS framework | https://github.com/Leesintheblindmonk1999/SAS |
+| SAS public API | Public API endpoint for SAS runtime checks and demos | https://sas-api.onrender.com |
+
+### Current Research Sequence
+
+```text
+R0        = infrastructure and baseline stability under clean-self controls
+R0-bis    = nonlinear dependence and redundancy audit among baseline modules
+R0.5P-1   = first external-clean prompt-paraphrase track over historical query sources
+R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
+R1        = next stage: SAS detector pilot over A_clean→C_clean vs A_clean→B_hallucination
+```
+
+### Methodological Boundary
+
+These records document a reproducible research progression for structural coherence auditing, external-clean generation, verifier calibration, and prior-art traceability.
+
+They do **not** claim final production validation of SAS, universal hallucination detection, or benchmark superiority over other systems. R1 is the next scientific stage where SAS modules will be evaluated against the external-clean corpus generated in R0.5.
+
 
 ---
 
