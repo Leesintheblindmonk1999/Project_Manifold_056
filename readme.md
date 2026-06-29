@@ -7,6 +7,7 @@
 [![R0--bis](https://img.shields.io/badge/R0--bis-Zenodo%2020671824-blue)](https://doi.org/10.5281/zenodo.20671824)
 [![R0.5P--1](https://img.shields.io/badge/R0.5P--1-Zenodo%2020742205-blue)](https://doi.org/10.5281/zenodo.20742205)
 [![R0.5P--2A](https://img.shields.io/badge/R0.5P--2A-Zenodo%2020838365-blue)](https://zenodo.org/records/20838365)
+[![R1 Real Local](https://img.shields.io/badge/R1%20Real%20Local-v1.0.7%20PASS-brightgreen)](docs/en/reports/R1_REAL_RESULTS_v1_0_7.md)
 
 ---
 
@@ -28,7 +29,7 @@ The original source code and integrity artifacts are preserved for traceability 
 
 ## Documentation & Prior-Art Trail
 
-The following records document the SAS / Project Manifold κD-0.56 research line, from the original SAS standard to the R0/R0-bis/R0.5 external-clean validation sequence.
+The following records document the SAS / Project Manifold κD-0.56 research line, from the original SAS standard to the R0/R0-bis/R0.5 external-clean sequence and the R1 real local structural-evaluation pass.
 
 ### Zenodo / DOI Records
 
@@ -41,6 +42,7 @@ The following records document the SAS / Project Manifold κD-0.56 research line
 | R0-bis | Nonlinear dependence and redundancy audit | https://doi.org/10.5281/zenodo.20671824 |
 | R0.5P-1 | Historical-query external-clean prompt-paraphrase audit | https://doi.org/10.5281/zenodo.20742205 |
 | R0.5P-2A | Numerical false-presupposition instruction-paraphrase external-clean audit | https://zenodo.org/records/20838365 |
+| R1 real local v1.0.7 | Structural evaluation pass over real R1 split; GitHub documentation available, Zenodo pending | `docs/en/reports/R1_REAL_RESULTS_v1_0_7.md` |
 
 ### Repositories and Public Endpoints
 
@@ -57,14 +59,14 @@ R0        = infrastructure and baseline stability under clean-self controls
 R0-bis    = nonlinear dependence and redundancy audit among baseline modules
 R0.5P-1   = first external-clean prompt-paraphrase track over historical query sources
 R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
-R1        = next stage: SAS detector pilot over A_clean→C_clean vs A_clean→B_hallucination
+R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_clean→B_hallucination
 ```
 
 ### Methodological Boundary
 
 These records document a reproducible research progression for structural coherence auditing, external-clean generation, verifier calibration, and prior-art traceability.
 
-They do **not** claim final production validation of SAS, universal hallucination detection, or benchmark superiority over other systems. R1 is the next scientific stage where SAS modules will be evaluated against the external-clean corpus generated in R0.5.
+They do **not** claim final production validation of SAS, universal hallucination detection, or benchmark superiority over other systems. R1 real local v1.0.7 is the first documented structural-evaluation pass over the external-clean corpus generated in R0.5. It demonstrates non-runtime interpretable structural signal while preserving the limitation that the lexical baseline remains stronger.
 
 
 ---
@@ -565,6 +567,122 @@ This record reports R0.5P-2A, a validated numerical false-presupposition instruc
 
 
 ---
+## R1 Real Local Structural Evaluation v1.0.7 — 2026-06-29
+
+R1 is the first real local structural-evaluation pass connecting the R0.5 external-clean outputs to executable SAS-light modules.
+
+This stage evaluates paired `A_clean → C_clean` versus `A_clean → B_hallucination` records using the real R1 dataset derived from the completed R0.5P-1 historical-events and R0.5P-2A numerical false-presupposition external-clean tracks.
+
+### R1 v1.0.7 Artifact Locations
+
+| Repository path | Role | SHA-256 |
+|---|---|---|
+| `docs/en/outputs/R1_REAL_LOCAL_V107_STRUCTURAL_EVAL_PASS/R1_REAL_LOCAL_V107_STRUCTURAL_EVAL_PASS.zip` | Frozen real local evidence package: manifests, selected logs, evaluation JSON files, scripts, and integrity manifest. | `a53b8790e99e5d2f7c63c0f2902132c2798a5e00bb63f29a37105c5f4e6a1144` |
+| `docs/en/outputs/R1_REAL_LOCAL_V107_STRUCTURAL_EVAL_PASS/R1_REAL_LOCAL_V107_STRUCTURAL_EVAL_PASS.zip.sha256.txt` | SHA-256 digest for the evidence package. | Digest file for the ZIP above. |
+| `docs/en/outputs/R1_REAL_LOCAL_V107_STRUCTURAL_EVAL_PASS/SAS_R1_REAL_LOCAL_V107_RELEASE_DOCS_PACKAGE.zip` | Documentation package: technical report, claim boundary, audit prompt, GitHub/Zenodo guides, checklist, and supporting documentation. | `5b9c71d9b90b5c51b5fe6113ccb978f947fdafae68cb4b159c9d4849950db4a7` |
+| `docs/en/outputs/R1_REAL_LOCAL_V107_STRUCTURAL_EVAL_PASS/SAS_R1_REAL_LOCAL_V107_RELEASE_DOCS_PACKAGE.zip.sha256.txt` | SHA-256 digest for the documentation package. | Digest file for the ZIP above. |
+| `docs/en/reports/R1_REAL_RESULTS_v1_0_7.md` | Human-readable R1 results report. | See package manifest. |
+| `docs/en/reports/LIMITATIONS_AND_CLAIM_BOUNDARY.md` | Explicit claim-boundary and limitation document. | See package manifest. |
+| `docs/en/papers/SAS_kD056_R1_Real_Local_Structural_Evaluation_v1_0_7.pdf` | Technical-report PDF prepared for Zenodo/manual publication. | See package manifest. |
+| `docs/en/papers/SAS_kD056_R1_Real_Local_Structural_Evaluation_v1_0_7.md` | Markdown source for the technical report. | See package manifest. |
+
+A Zenodo record should be linked here after manual publication.
+
+### R1 Dataset and Execution Summary
+
+The R1 real dataset contains:
+
+```text
+Paired source groups: 2349
+Total rows:           4698
+Validation rows:       938
+Test rows:            3760
+```
+
+The v1.0.7 runner completed the full real light-pass run:
+
+```text
+runner = r1_module_runner_v1.0.7
+rows processed = 4698 / 4698
+runtime ≈ 26.05 seconds
+aborted_due_runtime_limit = false
+```
+
+v1.0.7 also fixes the NIG JSON serialization issue. Full-run NIG check:
+
+```text
+NIG status OK:              4698 / 4698
+NIG conversion_error:          0 / 4698
+NIG import path: core.nig_engine_v1.run_nig
+NIG source-aware: false
+NIG role: diagnostic-only / standalone
+```
+
+### R1 Main Structural Result
+
+Runtime-derived features were excluded from the main structural claim.
+
+Thresholds and rules were calibrated on validation and evaluated on held-out test.
+
+The strongest non-runtime structural composite was:
+
+```text
+Flow + CRE + Negation, score >= 1
+```
+
+Held-out test result:
+
+| Metric | Value |
+|---|---:|
+| F1 | 0.8717 |
+| Precision | 0.9952 |
+| Recall | 0.7755 |
+| Accuracy | 0.8859 |
+
+Single-module and ablation summary:
+
+| Rule | Test F1 | Precision | Recall | Accuracy |
+|---|---:|---:|---:|---:|
+| Flow only | 0.8176 | 1.0000 | 0.6915 | 0.8457 |
+| CRE only | 0.6707 | 0.9927 | 0.5064 | 0.7513 |
+| Negation only | 0.4777 | 1.0000 | 0.3138 | 0.6569 |
+| NIG only | 0.1430 | 0.6881 | 0.0798 | 0.5218 |
+| Flow + CRE | 0.8416 | 0.9949 | 0.7293 | 0.8628 |
+| Flow + Negation | 0.8610 | 1.0000 | 0.7559 | 0.8779 |
+| Flow + CRE + Negation | **0.8717** | **0.9952** | **0.7755** | **0.8859** |
+| Flow + CRE + Negation + NIG | 0.8571 | 0.9513 | 0.7798 | 0.8699 |
+
+### R1 Lexical Baseline Limitation
+
+The lexical baseline remains stronger on this split:
+
+| Split | AUC | F1 |
+|---|---:|---:|
+| Validation | 0.9880 | 0.9936 |
+| Test | 0.9963 | 0.9968 |
+
+Therefore, R1 v1.0.7 should be interpreted as a **structural evaluation pass**, not as a claim that SAS-light outperforms lexical baselines.
+
+### R1 Methodological Boundary
+
+The correct public claim is:
+
+```text
+R1 real local v1.0.7 demonstrates that SAS-light structural modules produce a reproducible, non-runtime, interpretable signal on the R1 real split. The best Flow + CRE + Negation composite achieved test F1=0.8717, precision=0.9952, recall=0.7755, and accuracy=0.8859.
+```
+
+This record does **not** claim:
+
+- final production-grade hallucination detection;
+- universal SAS validation;
+- superiority over lexical baselines;
+- strong discriminative value for source-unaware NIG;
+- validity of runtime-derived features as scientific evidence.
+
+The result should be treated as a documented R1 structural-evaluation milestone and as input for later calibrated SAS tribunal work.
+
+---
+
 ## Semantic Shielding Annex
 
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
@@ -916,7 +1034,7 @@ R0-bis    = nonlinear dependence and redundancy audit among baseline modules
 R0.5P-1   = first external-clean prompt-paraphrase track over historical query sources
 R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
 R0.5-N/Q/D/S/R = remaining external-clean tracks, still deferred by domain
-R1        = nonredundant multimetric SAS tribunal with real SAS modules
+R1        = real local structural evaluation v1.0.7 with SAS-light modules; nonredundant tribunal calibration remains next work
 ```
 
 R0.5P-2A should be read as a second validated external-clean track, not as completion of the full R0.5 program.
@@ -929,7 +1047,7 @@ R0.5P-2A should be read as a second validated external-clean track, not as compl
 2. Link the Zenodo record once the manual upload is complete.
 3. Preserve `PUBLICATION_STATUS_R05P2A.md` as the repository-root status note.
 4. Add or update an integrity manifest for the contextual documentation layer.
-5. Continue R0.5 with separate track-conditioned protocols rather than a universal prompt.
+5. Continue deferred R0.5 tracks and use R1 v1.0.7 as the first structural-evaluation bridge toward a calibrated nonredundant SAS tribunal.
 
 ### R0.5 Deferred Track Roadmap
 
@@ -947,9 +1065,9 @@ R0.5 must remain track-conditioned. The next tracks should be opened only after 
 |         6 | R0.5N remaining numerical / code / structured tasks            | Extend strict number/date/code-invariant preservation and syntax-specific checks beyond the completed R0.5P-2A category. |
 
 
-### R1 Preparation
+### R1 Follow-up / Tribunal Calibration
 
-R1 should not count correlated baseline modules as independent votes. R0-bis showed that redundant signals must be clustered before voting. R1 should integrate real SAS modules and evidence classes such as:
+R1 real local v1.0.7 has now produced the first documented structural-evaluation pass. The next R1-oriented work should not count correlated baseline modules as independent votes. R0-bis showed that redundant signals must be clustered before voting. R1 should integrate real SAS modules and evidence classes such as:
 
 - `source_target_guard_score`;
 - TDA / topological coherence scores;
@@ -963,7 +1081,7 @@ R1 should not count correlated baseline modules as independent votes. R0-bis sho
 - module observability and evidence bundles;
 - a certification endpoint for hashable audit records.
 
-The R1 tribunal should report evidence clusters, module dependencies, and failure categories rather than presenting every signal as an independent vote.
+The future R1 tribunal should report evidence clusters, module dependencies, and failure categories rather than presenting every signal as an independent vote. R1 v1.0.7 should be treated as a structural bridge and calibration input, not as a final tribunal.
 
 ---
 
@@ -976,6 +1094,8 @@ Las actualizaciones documentales posteriores no cambian el valor histórico de R
 Las metáforas físicas se conservan como lenguaje conceptual de diseño temprano, no como afirmaciones físicas formales. El desarrollo activo del estándar continúa en SAS.
 
 R0.5P-2A agrega un segundo track external-clean validado: parafraseo de instrucciones de falsa presuposición numérica sobre `halogen/numerical_falsepresupposition`, con 1152/1200 generaciones aceptadas, 48 rechazos filtrados, 0 errores y control explícito de invariantes numéricos y contaminación desde `B_hallucination`.
+
+R1 real local v1.0.7 agrega el primer puente estructural entre los outputs external-clean de R0.5 y módulos SAS-light ejecutables. Sobre 4698 filas reales, el mejor compuesto no-runtime Flow + CRE + Negation alcanzó F1=0.8717, precisión=0.9952, recall=0.7755 y accuracy=0.8859 en test held-out. Este resultado se presenta como señal estructural interpretable y reproducible, no como superioridad frente al baseline lexical, que sigue siendo más fuerte.
 
 
 ---
