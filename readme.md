@@ -7,7 +7,7 @@
 [![R0--bis](https://img.shields.io/badge/R0--bis-Zenodo%2020671824-blue)](https://doi.org/10.5281/zenodo.20671824)
 [![R0.5P--1](https://img.shields.io/badge/R0.5P--1-Zenodo%2020742205-blue)](https://doi.org/10.5281/zenodo.20742205)
 [![R0.5P--2A](https://img.shields.io/badge/R0.5P--2A-Zenodo%2020838365-blue)](https://zenodo.org/records/20838365)
-[![R1 Real Local](https://img.shields.io/badge/R1%20Real%20Local-v1.0.7%20PASS-brightgreen)](docs/en/reports/R1_REAL_RESULTS_v1_0_7.md)
+[![R1 Real Local](https://img.shields.io/badge/R1-Zenodo%2021034155-blue)](https://zenodo.org/records/21034155)
 
 ---
 
@@ -42,7 +42,7 @@ The following records document the SAS / Project Manifold κD-0.56 research line
 | R0-bis | Nonlinear dependence and redundancy audit | https://doi.org/10.5281/zenodo.20671824 |
 | R0.5P-1 | Historical-query external-clean prompt-paraphrase audit | https://doi.org/10.5281/zenodo.20742205 |
 | R0.5P-2A | Numerical false-presupposition instruction-paraphrase external-clean audit | https://zenodo.org/records/20838365 |
-| R1 real local v1.0.7 | Structural evaluation pass over real R1 split; GitHub documentation available, Zenodo pending | `docs/en/reports/R1_REAL_RESULTS_v1_0_7.md` |
+| R1 real local v1.0.7 | Structural evaluation pass over real R1 split | https://zenodo.org/records/21034155 |
 
 ### Repositories and Public Endpoints
 
@@ -307,7 +307,7 @@ This finding is methodologically important: category names alone were insufficie
 | `docs/outputs/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip` | Frozen run package containing run artifacts from v0.1.9 through v0.2.3, including manifests, stdout/stderr logs, verification reports, accepted `C_clean` outputs, rejected-candidate diagnostics, and the main-1200 rejection analysis. | SHA-256 should be read from the accompanying `.zip.sha256.txt` file. |
 | `docs/outputs/SAS_R0_5P1_runs_v0_1_9_to_v0_2_3_<timestamp>.zip.sha256.txt` | SHA-256 digest for the public output package. | Used for reproducibility and Zenodo/GitHub integrity anchoring. |
 | Corrected technical report package, tables, manifests, SHA256SUMS | `9b40a622b26d0f1603cd332863a38bb54c2c9d58ae54bdef5a1195114c80d7f8` |
-A Zenodo record should be linked here after manual publication.
+Zenodo record: https://doi.org/10.5281/zenodo.20742205
 
 ### R0.5P-1 Execution Summary
 
@@ -450,7 +450,7 @@ This audit demonstrates that the external-clean pipeline can scale to a 1,200-sa
 | `docs/en/outputs/r05_external_clean_scripts_v0_2_5_patch12345_R05P2A.zip.sha256.txt`                      | SHA-256 digest for the frozen script package.                                                                                                                                                                                   | Digest file for the script ZIP above.                              |
 | `PUBLICATION_STATUS_R05P2A.md`                                                                            | Repository-root publication status note for R0.5P-2A, including artifact names, SHA-256 hashes, main result, and methodological boundary.                                                                                       | Human-readable publication status.                                 |
 
-A Zenodo record should be linked here after manual publication.
+Zenodo record: https://zenodo.org/records/20838365
 
 ### R0.5P-2A Execution Summary
 
@@ -583,10 +583,10 @@ This stage evaluates paired `A_clean → C_clean` versus `A_clean → B_hallucin
 | `docs/en/outputs/R1_REAL_LOCAL_V107_STRUCTURAL_EVAL_PASS/SAS_R1_REAL_LOCAL_V107_RELEASE_DOCS_PACKAGE.zip.sha256.txt` | SHA-256 digest for the documentation package. | Digest file for the ZIP above. |
 | `docs/en/reports/R1_REAL_RESULTS_v1_0_7.md` | Human-readable R1 results report. | See package manifest. |
 | `docs/en/reports/LIMITATIONS_AND_CLAIM_BOUNDARY.md` | Explicit claim-boundary and limitation document. | See package manifest. |
-| `docs/en/papers/SAS_kD056_R1_Real_Local_Structural_Evaluation_v1_0_7.pdf` | Technical-report PDF prepared for Zenodo/manual publication. | See package manifest. |
+| `docs/en/papers/SAS_kD056_R1_Real_Local_Structural_Evaluation_v1_0_7.pdf` | Technical-report PDF associated with the Zenodo record. | See package manifest. |
 | `docs/en/papers/SAS_kD056_R1_Real_Local_Structural_Evaluation_v1_0_7.md` | Markdown source for the technical report. | See package manifest. |
 
-A Zenodo record should be linked here after manual publication.
+Zenodo record: https://zenodo.org/records/21034155
 
 ### R1 Dataset and Execution Summary
 
@@ -680,6 +680,14 @@ This record does **not** claim:
 - validity of runtime-derived features as scientific evidence.
 
 The result should be treated as a documented R1 structural-evaluation milestone and as input for later calibrated SAS tribunal work.
+
+### R1 Recommended Citation
+
+```text
+Durante, G. E. (2026). SAS / κD=0.56 — R1 Real Local Structural Evaluation v1.0.7. Zenodo. https://zenodo.org/records/21034155
+```
+
+This Zenodo record should be cited as a reproducibility snapshot and technical report for the R1 real local structural evaluation of SAS / κD=0.56. It does not claim final SAS production validation, universal hallucination detection, or superiority over lexical baselines.
 
 ---
 
