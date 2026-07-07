@@ -59,6 +59,7 @@ R0        = infrastructure and baseline stability under clean-self controls
 R0-bis    = nonlinear dependence and redundancy audit among baseline modules
 R0.5P-1   = first external-clean prompt-paraphrase track over historical query sources
 R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
+R0.5D     = declarative external-clean corpus for halueval_qa (factual QA)
 R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_clean→B_hallucination
 ```
 
@@ -690,6 +691,98 @@ Durante, G. E. (2026). SAS / κD=0.56 — R1 Real Local Structural Evaluation v1
 This Zenodo record should be cited as a reproducibility snapshot and technical report for the R1 real local structural evaluation of SAS / κD=0.56. It does not claim final SAS production validation, universal hallucination detection, or superiority over lexical baselines.
 
 ---
+## R0.5D Declarative External-Clean Corpus (halueval_qa) — 2026-07-06
+
+R0.5D is a declarative external-clean corpus built for the `halueval_qa` (factual QA) track. Its primary methodological objective was to reduce the **length confound** that dominated the R1 v1.0.7 baseline (AUC 0.957, C/B ratio 2.07). By filtering for `B_hallucination` ≥ 15 words and generating `C_clean` as declarative factual prose from `A_clean` only, the lexical baseline was reduced to AUC 0.749 with a C/B length ratio of 1.29.
+
+This corpus is explicitly designed for the next milestone: **R1-D**, which will run SAS structural modules over the 744 accepted pairs to evaluate structural signal beyond the lexical baseline.
+
+### R0.5D Artifact Locations
+
+| Repository path | Role | SHA-256 |
+|---|---|---|
+| `docs/en/outputs/SAS_R05D_halueval_qa_v1_0_0.zip` | Final R0.5D artifact package: README, SHA256SUMS, ZENODO_METADATA, generations, verification records, form analysis, and lexical baseline. | `67171A10DD3E56791DF3F2EE8F23F09C241F3EFBA93EBCD6F82863A46BBC171C` |
+| `docs/en/outputs/SAS_R05D_halueval_qa_v1_0_0.zip.txt` | SHA-256 digest for the final R0.5D artifact package. | Digest file for the ZIP above. |
+| `PUBLICATION_STATUS_R05D.md` | Repository-root publication status note for R0.5D, including artifact names, SHA-256 hashes, main result, and methodological boundary. | Human-readable publication status. |
+
+Zenodo record: https://doi.org/10.5281/zenodo.[PENDING]
+
+### R0.5D Execution Summary
+
+The final main-scale run used:
+
+```text
+track = halueval_qa (factual QA)
+filter = B_hallucination ≥ 15 words (10,000 → 2,510 pairs)
+generator = r05d_generator.py v0.1.5
+verifier = r05d_verifier.py v0.1.4 (threshold 4 for long_b_ngram_overlap)
+model = anthropic/claude-3-haiku via OpenRouter
+sample = 1200
+primary_temperature = 0.25
+fallback_temperature = 0.35
+prompt = explicit anti-paraphrase, declarative-target instructions
+```
+
+Generation summary:
+
+```text
+Total selected:   1,200
+Generations OK:   1,197 (99.75%)
+Errors:               0
+No response:          3
+```
+
+Verification summary:
+
+```text
+Accepted:           744 (62%)
+Rejected:           456 (38%)
+```
+
+Rejection breakdown:
+
+| Reason | Count |
+|---|---:|
+| `long_b_ngram_overlap` | 419 |
+| `c_too_short` | 24 |
+| `c_b_length_ratio_low` | 15 |
+| `numbers_added_not_in_a` | 11 |
+| `c_b_length_ratio_high` | 3 |
+| `dates_added_not_in_a` | 3 |
+| `no_response` | 3 |
+| `b_only_entity_contamination` | 1 |
+
+### R0.5D Form Comparability and Baseline
+
+| Metric | Value |
+|---|---:|
+| C/B length ratio mean | 1.29 |
+| C/B length ratio median | 1.24 |
+| C/B token Jaccard mean | 0.36 |
+| Lexical baseline AUC (validation) | 0.762 |
+| Lexical baseline AUC (test) | **0.749** |
+
+The lexical baseline drop from 0.957 (R1 v1.0.7) to 0.749 confirms that the length confound has been substantially reduced. This creates meaningful evaluation space for SAS structural modules in R1-D.
+
+### Methodological Finding: `long_b_ngram_overlap`
+
+Manual inspection of the beta-100 run revealed that 53 of 54 rejections by `long_b_ngram_overlap` in `halueval_qa` were due to **legitimate topic overlap** (both B and C answer the same question A, sharing 5-grams like "is the capital of france") rather than actual text copied from B.
+
+The threshold was adjusted from **2 to 4 shared 5-grams**, increasing acceptance from 46% to 62%. This is documented in PATCH-7 of the R0.5D patch trail.
+
+### R0.5D Methodological Boundary
+
+The correct public claim is:
+
+```text
+R0.5D is a declarative external-clean corpus for halueval_qa that reduces the length confound and provides a lexical baseline of AUC 0.749. It is explicitly designed for R1-D structural evaluation. It does not claim final SAS validation, universal hallucination detection, or superiority over lexical baselines.
+```
+
+### Next Step: R1-D
+
+Run SAS structural modules (Flow, CRE, Negation, NIG, TDA) over the 744 accepted pairs using the R1 scaffold (v1.0.4+). Report structural composite F1 alongside the established lexical baseline (AUC 0.749). The split must reuse `r05d_common.sha_bucket` from generation/verification to ensure source-level split compatibility.
+
+---
 
 ## Semantic Shielding Annex
 
@@ -1065,12 +1158,12 @@ R0.5 must remain track-conditioned. The next tracks should be opened only after 
 | --------: | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | Completed | R0.5P-1 historical query paraphrase                            | Published as the first validated prompt-paraphrase external-clean track over `halogen/historical_events`.                |
 | Completed | R0.5P-2A numerical false-presupposition instruction paraphrase | Published as a validated instruction-paraphrase external-clean track over `halogen/numerical_falsepresupposition`.       |
+| Completed | R0.5D declarative QA (halueval_qa) | Published as a validated declarative external-clean corpus over `halueval_qa` with baseline AUC 0.749. |
 |         1 | R0.5P prompt-like biographies / references                     | Confirm whether the source asks for a bio/reference list, asks a factual question, or contains declarative prose.        |
 |         2 | R0.5Q QA                                                       | Define whether `C_clean` should paraphrase the question, answer the question, or preserve a source/target mapping.       |
-|         3 | R0.5D dialogue                                                 | Define turn-level grounding and avoid using hallucinated B responses as generation context.                              |
-|         4 | R0.5S summarization                                            | Define source length, compression ratio, and factual preservation rules.                                                 |
-|         5 | R0.5R reasoning / rationalization                              | Expand promptlike detection, preserve task variables, and prevent solver leakage.                                        |
-|         6 | R0.5N remaining numerical / code / structured tasks            | Extend strict number/date/code-invariant preservation and syntax-specific checks beyond the completed R0.5P-2A category. |
+|         3 | R0.5S summarization                                            | Define source length, compression ratio, and factual preservation rules.                                                 |
+|         4 | R0.5R reasoning / rationalization                              | Expand promptlike detection, preserve task variables, and prevent solver leakage.                                        |
+|         5 | R0.5N remaining numerical / code / structured tasks            | Extend strict number/date/code-invariant preservation and syntax-specific checks beyond the completed R0.5P-2A category. |
 
 
 ### R1 Follow-up / Tribunal Calibration
@@ -1105,6 +1198,7 @@ R0.5P-2A agrega un segundo track external-clean validado: parafraseo de instrucc
 
 R1 real local v1.0.7 agrega el primer puente estructural entre los outputs external-clean de R0.5 y módulos SAS-light ejecutables. Sobre 4698 filas reales, el mejor compuesto no-runtime Flow + CRE + Negation alcanzó F1=0.8717, precisión=0.9952, recall=0.7755 y accuracy=0.8859 en test held-out. Este resultado se presenta como señal estructural interpretable y reproducible, no como superioridad frente al baseline lexical, que sigue siendo más fuerte.
 
+R0.5D agrega un corpus declarativo external-clean para el track `halueval_qa` (QA factual). Con 744 respuestas `C_clean` aceptadas, el baseline léxico se redujo a AUC 0.749 y el confundidor de longitud se atenuó (ratio C/B 1.29 vs 2.07 en R1). El hallazgo metodológico principal fue que `long_b_ngram_overlap` en QA mide solapamiento tópico legítimo, no contaminación, lo que llevó a ajustar el umbral de 2 a 4 5-gramas compartidos. El corpus está diseñado para el siguiente hito: R1-D, que evaluará la señal estructural de SAS sobre estos datos declarativos.
 
 ---
 
