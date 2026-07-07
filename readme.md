@@ -8,6 +8,7 @@
 [![R0.5P--1](https://img.shields.io/badge/R0.5P--1-Zenodo%2020742205-blue)](https://doi.org/10.5281/zenodo.20742205)
 [![R0.5P--2A](https://img.shields.io/badge/R0.5P--2A-Zenodo%2020838365-blue)](https://zenodo.org/records/20838365)
 [![R1 Real Local](https://img.shields.io/badge/R1-Zenodo%2021034155-blue)](https://zenodo.org/records/21034155)
+[![R0.5D](https://img.shields.io/badge/R0.5D-Zenodo%2021231662-blue)](https://doi.org/10.5281/zenodo.21231662)
 
 ---
 
