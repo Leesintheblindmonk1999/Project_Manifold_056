@@ -705,7 +705,7 @@ This corpus is explicitly designed for the next milestone: **R1-D**, which will 
 | `docs/en/outputs/SAS_R05D_halueval_qa_v1_0_0.zip.txt` | SHA-256 digest for the final R0.5D artifact package. | Digest file for the ZIP above. |
 | `PUBLICATION_STATUS_R05D.md` | Repository-root publication status note for R0.5D, including artifact names, SHA-256 hashes, main result, and methodological boundary. | Human-readable publication status. |
 
-Zenodo record: https://doi.org/10.5281/zenodo.[PENDING]
+Zenodo record: https://doi.org/10.5281/zenodo.[21231662]
 
 ### R0.5D Execution Summary
 
