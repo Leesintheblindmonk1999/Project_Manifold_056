@@ -45,6 +45,7 @@ The following records document the SAS / Project Manifold κD-0.56 research line
 | R0.5P-1 | Historical-query external-clean prompt-paraphrase audit | https://doi.org/10.5281/zenodo.20742205 |
 | R0.5P-2A | Numerical false-presupposition instruction-paraphrase external-clean audit | https://zenodo.org/records/20838365 |
 | R1 real local v1.0.7 | Structural evaluation pass over real R1 split | https://zenodo.org/records/21034155 |
+| R1-D | Structural evaluation over declarative corpus R0.5D | https://doi.org/10.5281/zenodo.[PENDING] |
 
 ### Repositories and Public Endpoints
 
@@ -63,6 +64,7 @@ R0.5P-1   = first external-clean prompt-paraphrase track over historical query s
 R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
 R0.5D     = declarative external-clean corpus for halueval_qa (factual QA)
 R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_clean→B_hallucination
+R1-D      = structural evaluation over declarative corpus R0.5D: Flow composite F1=0.857 (+ baseline +22.4%)
 ```
 
 ### Methodological Boundary
@@ -1189,13 +1191,14 @@ R0.5P-2A should be read as a second validated external-clean track, not as compl
 
 ---
 
-### Immediate Next Steps After R0.5P-2A
+### Immediate Next Steps
 
-1. Publish the R0.5P-2A package with SHA-256 integrity metadata.
-2. Link the Zenodo record once the manual upload is complete.
-3. Preserve `PUBLICATION_STATUS_R05P2A.md` as the repository-root status note.
-4. Add or update an integrity manifest for the contextual documentation layer.
-5. Continue deferred R0.5 tracks and use R1 v1.0.7 as the first structural-evaluation bridge toward a calibrated nonredundant SAS tribunal.
+1. Publish R1-D to Zenodo (DOI pending).
+2. Complete SAS technical paper for arXiv.
+3. Submit to JAIIO55 conference.
+4. Add empirical data to BDI paper (10-20 runs with hashes).
+5. Continue deferred R0.5 tracks (dialogue, summarization, code, reasoning).
+6. R1 tribunal calibration with nonredundant evidence clusters.
 
 ### R0.5 Deferred Track Roadmap
 
@@ -1205,17 +1208,21 @@ R0.5 must remain track-conditioned. The next tracks should be opened only after 
 | --------: | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | Completed | R0.5P-1 historical query paraphrase                            | Published as the first validated prompt-paraphrase external-clean track over `halogen/historical_events`.                |
 | Completed | R0.5P-2A numerical false-presupposition instruction paraphrase | Published as a validated instruction-paraphrase external-clean track over `halogen/numerical_falsepresupposition`.       |
-| Completed | R0.5D declarative QA (halueval_qa) | Published as a validated declarative external-clean corpus over `halueval_qa` with baseline AUC 0.749. |
+| Completed | R0.5D declarative QA (halueval_qa)                             | Published as a validated declarative external-clean corpus over `halueval_qa` with baseline AUC 0.749.                   |
+| Completed | R1-D structural evaluation over declarative corpus R0.5D       | Published: Flow composite F1=0.857, precision=0.951, recall=0.780, accuracy=0.870.                                       |
 |         1 | R0.5P prompt-like biographies / references                     | Confirm whether the source asks for a bio/reference list, asks a factual question, or contains declarative prose.        |
 |         2 | R0.5Q QA                                                       | Define whether `C_clean` should paraphrase the question, answer the question, or preserve a source/target mapping.       |
 |         3 | R0.5S summarization                                            | Define source length, compression ratio, and factual preservation rules.                                                 |
 |         4 | R0.5R reasoning / rationalization                              | Expand promptlike detection, preserve task variables, and prevent solver leakage.                                        |
 |         5 | R0.5N remaining numerical / code / structured tasks            | Extend strict number/date/code-invariant preservation and syntax-specific checks beyond the completed R0.5P-2A category. |
 
-
 ### R1 Follow-up / Tribunal Calibration
 
-R1 real local v1.0.7 has now produced the first documented structural-evaluation pass. The next R1-oriented work should not count correlated baseline modules as independent votes. R0-bis showed that redundant signals must be clustered before voting. R1 should integrate real SAS modules and evidence classes such as:
+R1-D has now produced the first documented structural-evaluation pass over declarative QA data. The next R1-oriented work should not count correlated baseline modules as independent votes. R0-bis showed that redundant signals must be clustered before voting.
+
+The future R1 tribunal should report evidence clusters, module dependencies, and failure categories rather than presenting every signal as an independent vote. R1-D should be treated as a structural bridge and calibration input, not as a final tribunal.
+
+R1 should integrate real SAS modules and evidence classes such as:
 
 - `source_target_guard_score`;
 - TDA / topological coherence scores;
@@ -1246,6 +1253,8 @@ R0.5P-2A agrega un segundo track external-clean validado: parafraseo de instrucc
 R1 real local v1.0.7 agrega el primer puente estructural entre los outputs external-clean de R0.5 y módulos SAS-light ejecutables. Sobre 4698 filas reales, el mejor compuesto no-runtime Flow + CRE + Negation alcanzó F1=0.8717, precisión=0.9952, recall=0.7755 y accuracy=0.8859 en test held-out. Este resultado se presenta como señal estructural interpretable y reproducible, no como superioridad frente al baseline lexical, que sigue siendo más fuerte.
 
 R0.5D agrega un corpus declarativo external-clean para el track `halueval_qa` (QA factual). Con 744 respuestas `C_clean` aceptadas, el baseline léxico se redujo a AUC 0.749 y el confundidor de longitud se atenuó (ratio C/B 1.29 vs 2.07 en R1). El hallazgo metodológico principal fue que `long_b_ngram_overlap` en QA mide solapamiento tópico legítimo, no contaminación, lo que llevó a ajustar el umbral de 2 a 4 5-gramas compartidos. El corpus está diseñado para el siguiente hito: R1-D, que evaluará la señal estructural de SAS sobre estos datos declarativos.
+
+R1-D completó la evaluación estructural sobre el corpus declarativo R0.5D. El compuesto Flow + CRE + Negation alcanzó F1=0.8571, precisión=0.9513, recall=0.7798 y accuracy=0.8699 en test, superando el baseline léxico (AUC 0.749) en un 22.4%. La señal estructural de SAS es real y detectable en QA factual.
 
 ---
 
