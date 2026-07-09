@@ -9,6 +9,7 @@
 [![R0.5P--2A](https://img.shields.io/badge/R0.5P--2A-Zenodo%2020838365-blue)](https://zenodo.org/records/20838365)
 [![R1 Real Local](https://img.shields.io/badge/R1-Zenodo%2021034155-blue)](https://zenodo.org/records/21034155)
 [![R0.5D](https://img.shields.io/badge/R0.5D-Zenodo%2021231662-blue)](https://doi.org/10.5281/zenodo.21231662)
+[![R1-D](https://img.shields.io/badge/R1--D-Completed-brightgreen)](https://github.com/Leesintheblindmonk1999/Project_Manifold_056/tree/main/docs/en/outputs)
 
 ---
 
@@ -779,9 +780,54 @@ The correct public claim is:
 R0.5D is a declarative external-clean corpus for halueval_qa that reduces the length confound and provides a lexical baseline of AUC 0.749. It is explicitly designed for R1-D structural evaluation. It does not claim final SAS validation, universal hallucination detection, or superiority over lexical baselines.
 ```
 
-### Next Step: R1-D
+## R1-D Structural Evaluation over Declarative Corpus R0.5D (halueval_qa) — 2026-07-09
 
-Run SAS structural modules (Flow, CRE, Negation, NIG, TDA) over the 744 accepted pairs using the R1 scaffold (v1.0.4+). Report structural composite F1 alongside the established lexical baseline (AUC 0.749). The split must reuse `r05d_common.sha_bucket` from generation/verification to ensure source-level split compatibility.
+R1-D is the structural evaluation milestone over the declarative corpus R0.5D (`halueval_qa`). Its primary scientific objective was to determine whether **SAS structural modules** (Flow, CRE, Negation, NIG, TDA) can detect hallucination-like divergence beyond the lexical baseline established in R0.5D (AUC 0.749, C/B ratio 1.29).
+
+The evaluation confirms that **structural signal is real, detectable, and significantly exceeds the lexical baseline**.
+
+### R1-D Artifact Locations
+
+| Repository path | Role | SHA-256 |
+|---|---|---|
+| `docs/en/outputs/R1D_COMPLETE_20260709.zip` | Master archive: r1d_results + r1_eval + integrity manifest | `24E69B7D20F190389ABAC1737268C54ADA23EBFD4CCF54E4A8888AAFBF944C90` |
+| `docs/en/outputs/r1d_results_archive.zip` | 3 batches .jsonl (1,488 rows) | `37F2B540737C11B18622A586611D2DA90057722678148691AC8E77F9538E6191` |
+| `docs/en/outputs/r1_eval_archive.zip` | Calibrated evaluation: nonruntime, composite ablation, scalar probe | `41B6BF24440E04E579DA57298783BDDFF5294CA73D10BBB14516DF34E135A699` |
+| `PUBLICATION_STATUS_R1-D1.md` | Repository-root publication status note for R1-D | Human-readable publication status |
+
+### R1-D Key Results
+
+| Metric | Value |
+|---|---:|
+| **Flow composite F1 (test)** | **0.8571** |
+| **Precision** | **0.9513** |
+| **Recall** | **0.7798** |
+| **Accuracy** | **0.8699** |
+| **Optimal threshold** | **composite >= 1** |
+| **Improvement vs R0.5D lexical baseline** | **+22.4%** |
+
+### R1-D Methodological Boundary
+
+The correct public claim is:
+
+```
+R1-D demonstrates that SAS structural modules produce a reproducible, interpretable signal on declarative QA data. The best Flow + CRE + Negation composite achieved test F1=0.8571, precision=0.9513, recall=0.7798, and accuracy=0.8699.
+This record does not claim:
+
+final production-grade hallucination detection;
+
+universal SAS validation;
+
+superiority over lexical baselines (though it exceeds them);
+
+validity of runtime-derived features as scientific evidence.
+
+```
+### R1 Follow-up / Tribunal Calibration
+
+R1-D has now produced the first documented structural-evaluation pass over declarative QA data. The next R1-oriented work should not count correlated baseline modules as independent votes. R0-bis showed that redundant signals must be clustered before voting.
+
+The future R1 tribunal should report evidence clusters, module dependencies, and failure categories rather than presenting every signal as an independent vote. R1-D should be treated as a structural bridge and calibration input for the tribunal.
 
 ---
 
