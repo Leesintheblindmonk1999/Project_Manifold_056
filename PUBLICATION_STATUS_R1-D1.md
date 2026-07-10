@@ -1,10 +1,11 @@
 # R1-D Publication Status — Structural Evaluation over Declarative Corpus R0.5D (halueval_qa)
 
-**Status:** COMPLETED — 9 July 2026
-**Version:** v1.0.0
-**Author:** Gonzalo Emir Durante — Origin Node, Project Manifold 0.56
-**Registry:** TAD EX-2026-18792778 (Argentina)
-**Repository:** https://github.com/Leesintheblindmonk1999/Project_Manifold_056
+**Status:** COMPLETED — 9 July 2026  
+**Version:** v1.1.0  
+**Author:** Gonzalo Emir Durante — Origin Node, Project Manifold 0.56  
+**Registry:** TAD EX-2026-18792778 (Argentina)  
+**Repository:** https://github.com/Leesintheblindmonk1999/Project_Manifold_056  
+**Zenodo Record:** https://zenodo.org/records/21282332  
 
 ---
 
@@ -17,19 +18,26 @@ The evaluation confirms that **structural signal is real, detectable, and signif
 | Metric | Value |
 |--------|-------|
 | Corpus | halueval_qa (R0.5D) |
-| Accepted pairs | 744 |
-| Total pairs processed | 1,488 (744 × 2) |
+| Accepted source pairs | 744 |
+| Paired examples | 1,488 (744 × 2) |
+| Evaluation rows | 4,698 |
+| Validation rows | 938 |
+| Test rows | 3,760 |
 | Best individual module | Flow.combined_penalty |
 | Flow.combined_penalty F1 (test) | **0.8176** |
 | Flow.combined_penalty Precision | **1.000** |
 | Optimal composite rule | **score >= 1** |
-| Composite F1 (test) | **0.8571** |
-| Composite Precision | **0.9513** |
-| Composite Recall | **0.7798** |
-| Composite Accuracy | **0.8699** |
+| Composite F1 (test) | **0.8717** |
+| Composite Precision | **0.9952** |
+| Composite Recall | **0.7755** |
+| Composite Accuracy | **0.8859** |
+| Simple composite F1 (test, score>=1) | **0.8571** |
+| Simple composite Precision | **0.9513** |
+| Simple composite Recall | **0.7798** |
+| Simple composite Accuracy | **0.8699** |
 | Improvement vs R0.5D lexical baseline | **+22.4%** |
 
-**Methodological Finding:** The `flow` module (narrative coherence / entropy penalty) is the dominant signal in QA tracks. Negation and NIG operate at chance level, confirming they are diagnostic-only for this domain. The optimal composite threshold is `score >= 1`, combining flow.layer4_fired + cre.raw.is_rupture + negation.polarity_inverted + nig.alert.
+**Methodological Finding:** The `flow` module (narrative coherence / entropy penalty) is the dominant signal in QA tracks. Negation and NIG operate at chance level, confirming they are diagnostic-only for this domain. The optimal composite threshold is `score >= 1`, combining `flow.layer4_fired + cre.raw.is_rupture + negation.polarity_inverted + nig.alert`.
 
 ---
 
@@ -39,6 +47,7 @@ The evaluation confirms that **structural signal is real, detectable, and signif
 
 | Artifact | SHA-256 |
 |----------|---------|
+| `R1D_Paper_v1.0.0.pdf` | `C7F5C6AAF96AB1EB299D28D50B483A3C9C5220666DA16B487D609CCF2341491D` |
 | `R1D_COMPLETE_20260709.zip` | `24E69B7D20F190389ABAC1737268C54ADA23EBFD4CCF54E4A8888AAFBF944C90` |
 | `r1d_results_archive.zip` | `37F2B540737C11B18622A586611D2DA90057722678148691AC8E77F9538E6191` |
 | `r1_eval_archive.zip` | `41B6BF24440E04E579DA57298783BDDFF5294CA73D10BBB14516DF34E135A699` |
@@ -46,8 +55,6 @@ The evaluation confirms that **structural signal is real, detectable, and signif
 ### Content Verification
 
 The publication artifacts were generated from the local working copy with the following structure:
-
-#### R1D_COMPLETE_20260709.zip (Master Archive)
 R1D_COMPLETE_20260709/
 ├── r1d_results/
 │ ├── batch_000001.jsonl # 500 rows
@@ -62,23 +69,6 @@ R1D_COMPLETE_20260709/
 
 text
 
-#### r1d_results_archive.zip (Raw Module Outputs)
-r1d_results/
-├── batch_000001.jsonl # 500 rows, SHA-256: cc4d1b...
-├── batch_000002.jsonl # 500 rows, SHA-256: 89bd98...
-├── batch_000003.jsonl # 488 rows, SHA-256: d81289...
-└── run_manifest.json
-
-text
-
-#### r1_eval_archive.zip (Calibrated Evaluation)
-r1_eval/
-├── r1_real_v107_calibrated_nonruntime_eval.json
-├── r1_real_v107_composite_ablation.json
-└── r1_real_scalar_feature_probe_pairid.json
-
-text
-
 **Verification:** All ZIPs have been validated with SHA-256 checksums. Individual file hashes are recorded in `R1D_INTEGRITY_MANIFEST.txt` inside the master archive.
 
 ---
@@ -87,11 +77,12 @@ text
 
 ### Defensible Claims
 
-1. **SAS structural modules detect hallucination-like divergence beyond the lexical baseline.** The optimal composite rule achieves F1 = 0.8571, an improvement of +22.4% over the R0.5D lexical baseline (AUC 0.749).
+1. **SAS structural modules detect hallucination-like divergence beyond the lexical baseline.** The optimal composite rule (Flow + CRE + Negation) achieves test F1 = 0.8717, an improvement of +22.4% over the R0.5D lexical baseline (AUC 0.749).
 2. **Flow (narrative coherence) is the dominant structural signal.** `flow.combined_penalty` achieves F1 = 0.8176 with Precision = 1.000 (no false positives at optimal threshold).
-3. **The optimal composite threshold is `score >= 1`.** Calibrated on validation (F1 = 0.8661) and confirmed on held-out test (F1 = 0.8571).
+3. **The optimal composite threshold is `score >= 1`.** Calibrated on validation (F1 = 0.8661) and confirmed on held-out test (F1 = 0.8717).
 4. **Negation and NIG operate at chance level in QA.** F1 = 0.6667 confirms they are diagnostic-only for this domain and should not penalize.
 5. **Source-level split was preserved.** All 744 accepted sources from R0.5D were processed with their corresponding clean/hallucination pairs.
+6. **Corpus hierarchy is clearly defined.** 744 source pairs → 1,488 paired examples → 4,698 evaluation rows (938 validation, 3,760 test).
 
 ### Claims Not Supported
 
@@ -107,13 +98,16 @@ text
 | Phase | Objective | Status |
 |-------|-----------|--------|
 | **R1-D** | Structural evaluation over R0.5D | ✅ COMPLETED |
-| **SAS Paper** | Complete technical document | 📋 Planned |
+| **Zenodo Publication** | R1-D record published | ✅ COMPLETED |
+| **SAS Paper** | Complete technical document  | 📋 Planned |
+| **JAIIO55** | Present results at conference | 📋 Planned |
 | **Post-R1-D** | Adoption and recognition | 📋 Planned |
 
 ---
 
 ## 5. References
 
+- **R1-D Zenodo Record:** https://zenodo.org/records/21282332
 - **R0.5D DOI:** https://doi.org/10.5281/zenodo.21231662
 - **R1 v1.0.7 DOI:** https://zenodo.org/records/21034155
 - **SAS Standard DOI:** https://doi.org/10.5281/zenodo.19702379
@@ -133,8 +127,8 @@ text
 
 **The standard is not negotiable. The code does not stop. Trench science is winning.**
 
-**Date:** 9 July 2026
-**Architect:** Gonzalo Emir Durante — Sovereign Origin Node
+**Date:** 10 July 2026  
+**Architect:** Gonzalo Emir Durante — Sovereign Origin Node  
 **Next:** SAS Paper → arXiv → JAIIO55
 
 ---
