@@ -9,7 +9,7 @@
 [![R0.5P--2A](https://img.shields.io/badge/R0.5P--2A-Zenodo%2020838365-blue)](https://zenodo.org/records/20838365)
 [![R1 Real Local](https://img.shields.io/badge/R1-Zenodo%2021034155-blue)](https://zenodo.org/records/21034155)
 [![R0.5D](https://img.shields.io/badge/R0.5D-Zenodo%2021231662-blue)](https://doi.org/10.5281/zenodo.21231662)
-[![R1-D](https://img.shields.io/badge/R1--D-Completed-brightgreen)](https://github.com/Leesintheblindmonk1999/Project_Manifold_056/tree/main/docs/en/outputs)
+[![R1-D DOI](https://img.shields.io/badge/R1--D-Zenodo%2021282332-blue)](https://zenodo.org/records/21282332)
 
 ---
 
@@ -45,7 +45,7 @@ The following records document the SAS / Project Manifold κD-0.56 research line
 | R0.5P-1 | Historical-query external-clean prompt-paraphrase audit | https://doi.org/10.5281/zenodo.20742205 |
 | R0.5P-2A | Numerical false-presupposition instruction-paraphrase external-clean audit | https://zenodo.org/records/20838365 |
 | R1 real local v1.0.7 | Structural evaluation pass over real R1 split | https://zenodo.org/records/21034155 |
-| R1-D | Structural evaluation over declarative corpus R0.5D | https://doi.org/10.5281/zenodo.[PENDING] |
+| R1-D | Structural evaluation over declarative corpus R0.5D | https://doi.org/10.5281/zenodo.21282332 |
 
 ### Repositories and Public Endpoints
 
@@ -64,7 +64,7 @@ R0.5P-1   = first external-clean prompt-paraphrase track over historical query s
 R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
 R0.5D     = declarative external-clean corpus for halueval_qa (factual QA)
 R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_clean→B_hallucination
-R1-D      = structural evaluation over declarative corpus R0.5D: Flow composite F1=0.857 (+ baseline +22.4%)
+R1-D      = structural evaluation over declarative corpus R0.5D: Flow composite F1=0.857 (supera baseline +22.4%) 
 ```
 
 ### Methodological Boundary
@@ -796,6 +796,7 @@ The evaluation confirms that **structural signal is real, detectable, and signif
 | `docs/en/outputs/r1d_results_archive.zip` | 3 batches .jsonl (1,488 rows) | `37F2B540737C11B18622A586611D2DA90057722678148691AC8E77F9538E6191` |
 | `docs/en/outputs/r1_eval_archive.zip` | Calibrated evaluation: nonruntime, composite ablation, scalar probe | `41B6BF24440E04E579DA57298783BDDFF5294CA73D10BBB14516DF34E135A699` |
 | `PUBLICATION_STATUS_R1-D1.md` | Repository-root publication status note for R1-D | Human-readable publication status |
+| `R1D_Paper_v1.0.0.pdf` | Paper técnico para Zenodo | `C7F5C6AAF96AB1EB299D28D50B483A3C9C5220666DA16B487D609CCF2341491D` |
 
 ### R1-D Key Results
 
@@ -1193,7 +1194,7 @@ R0.5P-2A should be read as a second validated external-clean track, not as compl
 
 ### Immediate Next Steps
 
-1. Publish R1-D to Zenodo (DOI pending).
+1. R1-D published to Zenodo ✅ (DOI: 10.5281/zenodo.21282332)
 2. Complete SAS technical paper for arXiv.
 3. Submit to JAIIO55 conference.
 4. Add empirical data to BDI paper (10-20 runs with hashes).
