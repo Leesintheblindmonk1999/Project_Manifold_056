@@ -10,6 +10,7 @@
 [![R1 Real Local](https://img.shields.io/badge/R1-Zenodo%2021034155-blue)](https://zenodo.org/records/21034155)
 [![R0.5D](https://img.shields.io/badge/R0.5D-Zenodo%2021231662-blue)](https://doi.org/10.5281/zenodo.21231662)
 [![R1-D DOI](https://img.shields.io/badge/R1--D-Zenodo%2021282332-blue)](https://zenodo.org/records/21282332)
+[![R2.1 DOI](https://img.shields.io/badge/R2.1-Zenodo%2021365707-blue)](https://doi.org/10.5281/zenodo.21365707)
 
 ---
 
@@ -46,6 +47,7 @@ The following records document the SAS / Project Manifold κD-0.56 research line
 | R0.5P-2A | Numerical false-presupposition instruction-paraphrase external-clean audit | https://zenodo.org/records/20838365 |
 | R1 real local v1.0.7 | Structural evaluation pass over real R1 split | https://zenodo.org/records/21034155 |
 | R1-D | Structural evaluation over declarative corpus R0.5D | https://doi.org/10.5281/zenodo.21282332 |
+| R2.1 | Structural code hallucination detection via AST fingerprinting (code domain) | https://doi.org/10.5281/zenodo.21365707 |
 
 ### Repositories and Public Endpoints
 
@@ -65,6 +67,7 @@ R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean
 R0.5D     = declarative external-clean corpus for halueval_qa (factual QA)
 R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_clean→B_hallucination
 R1-D      = structural evaluation over declarative corpus R0.5D: Flow composite F1=0.857 (supera baseline +22.4%) 
+R2.1      = extension of κD structural evaluation to the code domain (AST fingerprinting vs. reference implementation)
 ```
 
 ### Methodological Boundary
@@ -834,7 +837,64 @@ The future R1 tribunal should report evidence clusters, module dependencies, and
 
 ---
 
-## Semantic Shielding Annex
+## R2.1 Structural Code Hallucination Detection via AST Fingerprinting — 2026-07-14
+
+R2.1 is the first extension of the κD = 0.56 structural-evaluation line beyond declarative text (R0.5D / R1-D) into the **code domain**. Its objective was to stress-test whether κD-adjacent structural methods generalize to source code, and to document with equal rigor both where they do and where they do not.
+
+This section documents **R2.1 only**. It does **not** claim a solution to reference-free code hallucination detection (see Methodological Boundary below), and it does **not** claim final SAS validation, universal hallucination detection, or benchmark superiority over other systems.
+
+### R2.1 Artifact Locations
+
+| Repository path | Role | SHA-256 |
+|---|---|---|
+| `docs/en/outputs/R2.1_SAS_Code_Domain_Zenodo.zip` | Full R2.1 package: technical paper (PDF + Markdown source), code (patched `code_ast_diff.py`, original reference version, `code_tda_attestation.py`, `tda_attestation.py` dependency, `functional_relabel.py`, `validate_r21.py`), corpus metadata (`corpus_funcional_completo.csv`), and README with scope disclaimer and negative findings. | `7f3f07c1ece06637a9670d237dd0dd0385fee2340dfb575b2d6cb55d604f4f9a` (full ZIP) |
+| `data/corpus_funcional_completo.csv` (inside ZIP) | Execution-verified corpus metadata (2,050 rows; 1,596 usable after benchmark-noise exclusion). | See `corpus_funcional_completo.sha256` inside the package; verify against the exact published file, as this value can vary by line-ending encoding (Windows/Linux) without affecting substantive content. |
+| `PUBLICATION_STATUS_R2.1.md` | Repository-root publication status note for R2.1, including artifact names, SHA-256 hashes, main results, and methodological boundary. | Human-readable publication status. |
+
+Zenodo record: https://doi.org/10.5281/zenodo.21365707
+
+### R2.1 Corpus Construction
+
+The public dataset `datapaf/CodeHallucinationDetection` (first publicly available line-level code hallucination dataset) was used as the base corpus across six model-generation variants (DeepSeek-Coder 6.7B/33B, CodeLlama-7B, Llama-3-8B), totaling 6,654 raw rows.
+
+A critical construct-validity finding preceded any structural evaluation: the dataset's shipped `hallucinated` label was found, by systematic verification with zero exceptions across the corpus, to be a pure textual-divergence flag (`reply != answer`), not a functional-correctness label. A generated solution that used a different but fully correct implementation (e.g., an accumulator loop instead of a built-in `sum()` call) was labeled as a hallucination purely for not being a byte-for-byte match to one canonical reference.
+
+This was corrected via **execution-based relabeling**: for the 2,050 rows carrying real unit-test assertions (`meta.test`), both `answer` and `reply` were executed in an isolated subprocess against those assertions. Rows where the reference `answer` itself failed its own test (454 rows, 22.1%) were excluded as pre-existing benchmark noise (independently confirmed as malformed MBPP assertions and prompt/test signature mismatches), yielding a final corpus of **1,596 execution-verified rows** (978 non-hallucinated / 618 hallucinated) across five generator models.
+
+### R2.1 Key Results
+
+Three methodological approaches were evaluated against the corrected corpus with equal documentary weight given to positive and negative outcomes:
+
+| Approach | Result (AUC) | Status |
+|---|---:|---|
+| AST structural comparison against reference, binary vetoes removed | **0.9141** (raw) / **0.9421** (length-confound-controlled, n=1,097) | Positive, robust result |
+| Internal-coherence TDA (code lines treated as the atomic unit, two independent implementations) | 0.40 – 0.45 | Negative result, well triangulated |
+| Information-theoretic composite (entropy + fractal heuristic + TDA term + semantic-density term) | Not reported as a validated figure | Excluded: internal audit found 40% of the composite weight (TDA term + semantic-density term) was contributing zero information across all 1,596 rows, due to a silent exception-handling defect and a hard-coded placeholder value respectively |
+
+The positive result was checked against a length-confound baseline (a naive length-difference score alone reaches AUC 0.9096–0.9115 on this corpus): the structural score's performance *increases*, not collapses, once length is controlled for, indicating genuine structural signal beyond a length proxy.
+
+### R2.1 Methodological Boundary
+
+The correct public claim is:
+
+```text
+R2.1 demonstrates that κD-adjacent structural methods generalize to the code domain when a reference implementation is available for comparison at detection time (AUC 0.9141 raw / 0.9421 length-confound-controlled). It also documents a well-triangulated negative result for internal-coherence TDA applied to short code artifacts (AUC 0.40-0.45, confirmed by two independent implementations), and excludes an information-theoretic composite method pending correction of an identified implementation defect.
+```
+
+This record does **not** claim:
+
+- a solution to reference-free code hallucination detection (detecting a fabricated function or non-existent import in freshly generated code with no ground truth available). None of the evaluated methods address that harder, architecturally distinct problem; it is proposed as a future milestone (R2.1-b), oriented toward a knowledge-base-of-valid-APIs framing rather than reference comparison;
+- that internal-coherence TDA transfers from the declarative-text domain (R0.5D / R1-D) to short code artifacts — the opposite was found and is documented as a negative result;
+- validity of the excluded information-theoretic composite score as evidence about information-theoretic methods in general — the negative number obtained reflects a specific, partially-defective implementation, not a clean test of the underlying idea;
+- universal SAS validation or superiority over any external code-review or hallucination-detection tool.
+
+### R2.1 Recommended Citation
+
+```text
+Durante, G. E. (2026). SAS / κD=0.56 — R2.1: Structural Code Hallucination Detection via AST Fingerprinting, Validated on a Functional Corpus. Zenodo. https://doi.org/10.5281/zenodo.21365707
+```
+
+---
 
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
 
@@ -1186,6 +1246,7 @@ R0.5P-1   = first external-clean prompt-paraphrase track over historical query s
 R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
 R0.5-N/Q/D/S/R = remaining external-clean tracks, still deferred by domain
 R1        = real local structural evaluation v1.0.7 with SAS-light modules; nonredundant tribunal calibration remains next work
+R2.1      = code domain extension: AST structural comparison validated (AUC 0.91-0.94, reference required); TDA internal-coherence negative result documented (AUC 0.40-0.45)
 ```
 
 R0.5P-2A should be read as a second validated external-clean track, not as completion of the full R0.5 program.
@@ -1195,11 +1256,12 @@ R0.5P-2A should be read as a second validated external-clean track, not as compl
 ### Immediate Next Steps
 
 1. R1-D published to Zenodo ✅ (DOI: 10.5281/zenodo.21282332)
-2. Complete SAS technical paper for arXiv.
-3. Submit to JAIIO55 conference.
-4. Add empirical data to BDI paper (10-20 runs with hashes).
-5. Continue deferred R0.5 tracks (dialogue, summarization, code, reasoning).
+2. R2.1 published to Zenodo ✅ (DOI: 10.5281/zenodo.21365707) — code-domain extension, structural comparison validated, TDA negative result documented.
+3. R2.1-b: reference-free code hallucination detection (fabricated function / non-existent import, no ground truth available at detection time), oriented toward a knowledge-base-of-valid-APIs framing rather than reference comparison.
+4. Add empirical data to BDI paper (10-20 runs with hashes), to be grounded in validation across at least two domains (declarative text + code) rather than text alone.
+5. Continue deferred R0.5 tracks (dialogue, summarization, reasoning) and R2.2/R3 (dialogue coherence / temporal consistency), same execution-verified-ground-truth discipline used in R2.1 where applicable.
 6. R1 tribunal calibration with nonredundant evidence clusters.
+7. External peer review (e.g. F1000Research, Qeios) remains available as an optional validation channel for any published milestone; it is not treated as a blocking requirement for continued development of the standard.
 
 ### R0.5 Deferred Track Roadmap
 
@@ -1256,6 +1318,8 @@ R1 real local v1.0.7 agrega el primer puente estructural entre los outputs exter
 R0.5D agrega un corpus declarativo external-clean para el track `halueval_qa` (QA factual). Con 744 respuestas `C_clean` aceptadas, el baseline léxico se redujo a AUC 0.749 y el confundidor de longitud se atenuó (ratio C/B 1.29 vs 2.07 en R1). El hallazgo metodológico principal fue que `long_b_ngram_overlap` en QA mide solapamiento tópico legítimo, no contaminación, lo que llevó a ajustar el umbral de 2 a 4 5-gramas compartidos. El corpus está diseñado para el siguiente hito: R1-D, que evaluará la señal estructural de SAS sobre estos datos declarativos.
 
 R1-D completó la evaluación estructural sobre el corpus declarativo R0.5D. El compuesto Flow + CRE + Negation alcanzó F1=0.8571, precisión=0.9513, recall=0.7798 y accuracy=0.8699 en test, superando el baseline léxico (AUC 0.749) en un 22.4%. La señal estructural de SAS es real y detectable en QA factual.
+
+R2.1 extiende la línea de evaluación estructural al dominio de código, con el mismo estándar de rigor aplicado a resultados positivos y negativos. Se construyó un corpus de 1.596 muestras con etiqueta de corrección funcional verificada por ejecución real (no por divergencia textual, que fue la etiqueta original del dataset público y se identificó como inválida para este propósito). La comparación estructural AST contra una implementación de referencia, sin vetos binarios, alcanzó AUC 0.9141 (bruto) / 0.9421 (controlando el confundidor de longitud) — resultado positivo y robusto. La coherencia topológica interna (TDA), adaptada del mecanismo usado en texto, no transfiere a fragmentos cortos de código (AUC 0.40-0.45, confirmado por dos implementaciones independientes) — hallazgo negativo documentado con el mismo rigor. Un método adicional de "física de la información" fue excluido de los resultados validados tras auditoría interna, que encontró un defecto de implementación (40% del peso del score era inerte por manejo silencioso de excepciones y un valor de reemplazo fijo). R2.1 no resuelve la detección de alucinaciones de código sin referencia disponible — ese problema queda declarado explícitamente como trabajo futuro (R2.1-b).
 
 ---
 
