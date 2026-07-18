@@ -11,6 +11,7 @@
 [![R0.5D](https://img.shields.io/badge/R0.5D-Zenodo%2021231662-blue)](https://doi.org/10.5281/zenodo.21231662)
 [![R1-D DOI](https://img.shields.io/badge/R1--D-Zenodo%2021282332-blue)](https://zenodo.org/records/21282332)
 [![R2.1 DOI](https://img.shields.io/badge/R2.1-Zenodo%2021365707-blue)](https://doi.org/10.5281/zenodo.21365707)
+[![R2.1-b DOI](https://img.shields.io/badge/R2.1--b-Zenodo%2021420392-blue)](https://doi.org/10.5281/zenodo.21420392)
 
 ---
 
@@ -48,6 +49,7 @@ The following records document the SAS / Project Manifold κD-0.56 research line
 | R1 real local v1.0.7 | Structural evaluation pass over real R1 split | https://zenodo.org/records/21034155 |
 | R1-D | Structural evaluation over declarative corpus R0.5D | https://doi.org/10.5281/zenodo.21282332 |
 | R2.1 | Structural code hallucination detection via AST fingerprinting (code domain) | https://doi.org/10.5281/zenodo.21365707 |
+| R2.1-b | Toward reference-free code hallucination detection: minimal API knowledge base, live PyPI verification, and evidence of defensive package squatting | https://doi.org/10.5281/zenodo.21420392 |
 
 ### Repositories and Public Endpoints
 
@@ -68,6 +70,7 @@ R0.5D     = declarative external-clean corpus for halueval_qa (factual QA)
 R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_clean→B_hallucination
 R1-D      = structural evaluation over declarative corpus R0.5D: Flow composite F1=0.857 (supera baseline +22.4%) 
 R2.1      = extension of κD structural evaluation to the code domain (AST fingerprinting vs. reference implementation)
+R2.1-b    = toward reference-free detection: import-level validation via a minimal API knowledge base and live PyPI verification (precision 100%, recall 61.68% with a documented registry-drift explanation)
 ```
 
 ### Methodological Boundary
@@ -896,6 +899,62 @@ Durante, G. E. (2026). SAS / κD=0.56 — R2.1: Structural Code Hallucination De
 
 ---
 
+## R2.1-b Toward Reference-Free Code Hallucination Detection — 2026-07-18
+
+R2.1-b addresses the problem explicitly left open in R2.1's own Methodological Boundary: detecting a fabricated import, function, or module in freshly generated code **with no reference implementation available at detection time**. This milestone documents three phases of work on the narrowest tractable sub-case of that problem: verifying whether an imported Python module name corresponds to a real package, using the module name alone.
+
+This section documents **R2.1-b only**. It does not claim a general solution to reference-free code hallucination detection (function- and method-level validation remain open), and it does not claim final SAS validation, universal hallucination detection, or benchmark superiority over other systems.
+
+### R2.1-b Artifact Locations
+
+| Repository path | Role | SHA-256 |
+|---|---|---|
+| `docs/en/outputs/R2.1b_Reference_Free_Detection_Zenodo.zip` | Full R2.1-b package: technical paper (PDF + Markdown source), code for all three phases (`build_api_kb.py`, `validate_import.py`, `eval_slopsquatting.py`, `clean_slopsquatting_ground_truth.py`, `pypi_live_check.py`, `eval_live_pypi.py`), data (knowledge base, PyPI top-200 snapshot, original and corrected Slopsquatting corpus, live-query cache), and README with scope disclaimer and full findings. | `caa4362c74540aac640ecb9ac1765c7399720565d52a70aa2a25dfdfb8c3696c` (full ZIP) |
+| `PUBLICATION_STATUS_R2.1-b.md` | Repository-root publication status note for R2.1-b, including artifact names, SHA-256 hashes, main results, and methodological boundary. | Human-readable publication status. |
+
+Zenodo record: https://doi.org/10.5281/zenodo.21420392
+Timestamp proof: RFC 3161 token (TSA: FreeTSA), included in the Zenodo deposit as `.tsr`
+
+### R2.1-b Methodology, in Three Phases
+
+**Phase 1 — minimal API knowledge base.** Combined `sys.stdlib_module_names` with the top-200 PyPI packages by 30-day download count (source: `hugovk/top-pypi-packages`, snapshot included for reproducibility). Found that a materially sized subset of the top-200 have an import name that differs from their PyPI package name (e.g. `scikit-learn` imports as `sklearn`), requiring an explicit exception table.
+
+**Phase 2 — validation against a real adversarial corpus.** Validated against Trend Micro's public "Slopsquatting" dataset (7,956 real coding-agent module references, 302 ground-truth fabricated packages, MIT license). Found that 28 of those 302 ground-truth labels (9.3%) were themselves benchmark noise from the same package-name/import-name conflation, on the external dataset's own verification method.
+
+**Phase 3 — live PyPI registry verification.** Replaced the static whitelist with a live query against the real PyPI JSON API, resolving multiple name candidates per module before concluding non-existence. Investigating the resulting recall gap led to an unplanned finding, detailed below.
+
+### R2.1-b Key Results
+
+| Phase | Result | Status |
+|---|---:|---|
+| Phase 2 (raw) | Precision 5.25% / Recall 90.73% | Negative — static whitelist not usable in production |
+| Phase 2 (ground-truth corrected) | Recall 100% (274/274) after excluding 28 noise entries | Data-quality finding |
+| Phase 3 (live PyPI check) | Precision 100.00% (0 false positives) / Recall 61.68% | Mixed — precision solved, recall investigated |
+| Phase 3 (recall investigation) | 21 of 24 remaining unresolved names are real PyPI packages first published 2026-02-19 to 2026-02-21, described as "Benign slopsquatting research package" | Unplanned finding — evidence of active defensive package squatting |
+
+### R2.1-b Methodological Boundary
+
+The correct public claim is:
+
+```text
+R2.1-b validates import-name existence checking for Python, achieving 100.00% precision via live PyPI registry verification (0 false positives against a 7,956-reference real-world corpus). Its raw recall figure of 61.68% is shown, through direct investigation of the underlying package registration dates, to be substantially explained by registry drift rather than by a detection failure: the large majority of unresolved names correspond to packages registered after the benchmark's ground truth was collected, several of them explicitly self-described as defensive research placeholders for known LLM-hallucinated package names.
+```
+
+This record does **not** claim:
+
+- a solution to reference-free hallucination detection at the function or method level (only import-name existence is validated);
+- applicability to any language other than Python;
+- that the 61.68% raw recall figure is a stable, reusable estimate of the live-check method's real-time performance — Section 4.4 of the accompanying paper explains why it is a lower bound specific to comparing a live system against a time-frozen benchmark in an adversarially-reactive domain;
+- attribution of the registered "benign slopsquatting research package" names to any specific individual or organization — this is reported as an independently verifiable observation against the public PyPI registry, not as a claim about who registered them.
+
+### R2.1-b Recommended Citation
+
+```text
+Durante, G. E. (2026). SAS / κD=0.56 — R2.1-b: Toward Reference-Free Code Hallucination Detection. Zenodo. https://doi.org/10.5281/zenodo.21420392
+```
+
+---
+
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
 
 - exact fractional forms such as `14/25`;
@@ -1247,6 +1306,7 @@ R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean
 R0.5-N/Q/D/S/R = remaining external-clean tracks, still deferred by domain
 R1        = real local structural evaluation v1.0.7 with SAS-light modules; nonredundant tribunal calibration remains next work
 R2.1      = code domain extension: AST structural comparison validated (AUC 0.91-0.94, reference required); TDA internal-coherence negative result documented (AUC 0.40-0.45)
+R2.1-b    = reference-free sub-case (import-name existence): live PyPI verification reaches precision 100.00%; recall 61.68% investigated and substantially explained by registry drift, with evidence of active defensive package squatting
 ```
 
 R0.5P-2A should be read as a second validated external-clean track, not as completion of the full R0.5 program.
@@ -1257,11 +1317,12 @@ R0.5P-2A should be read as a second validated external-clean track, not as compl
 
 1. R1-D published to Zenodo ✅ (DOI: 10.5281/zenodo.21282332)
 2. R2.1 published to Zenodo ✅ (DOI: 10.5281/zenodo.21365707) — code-domain extension, structural comparison validated, TDA negative result documented.
-3. R2.1-b: reference-free code hallucination detection (fabricated function / non-existent import, no ground truth available at detection time), oriented toward a knowledge-base-of-valid-APIs framing rather than reference comparison.
-4. Add empirical data to BDI paper (10-20 runs with hashes), to be grounded in validation across at least two domains (declarative text + code) rather than text alone.
-5. Continue deferred R0.5 tracks (dialogue, summarization, reasoning) and R2.2/R3 (dialogue coherence / temporal consistency), same execution-verified-ground-truth discipline used in R2.1 where applicable.
-6. R1 tribunal calibration with nonredundant evidence clusters.
-7. External peer review (e.g. F1000Research, Qeios) remains available as an optional validation channel for any published milestone; it is not treated as a blocking requirement for continued development of the standard.
+3. R2.1-b published to Zenodo ✅ (DOI: 10.5281/zenodo.21420392) — reference-free import-existence validation via live PyPI verification; precision 100.00%; recall gap investigated and substantially explained by registry drift, with an unplanned finding of active defensive package squatting.
+4. Function- and method-level reference-free validation (open work carried forward from R2.1-b; no dedicated milestone number assigned yet).
+5. Add empirical data to BDI paper (10-20 runs with hashes), to be grounded in validation across at least two domains (declarative text + code) rather than text alone.
+6. Continue deferred R0.5 tracks (dialogue, summarization, reasoning) and R2.2/R3 (dialogue coherence / temporal consistency), same execution-verified-ground-truth discipline used in R2.1/R2.1-b where applicable.
+7. R1 tribunal calibration with nonredundant evidence clusters.
+8. External peer review (e.g. F1000Research, Qeios) remains available as an optional validation channel for any published milestone; it is not treated as a blocking requirement for continued development of the standard.
 
 ### R0.5 Deferred Track Roadmap
 
@@ -1320,6 +1381,8 @@ R0.5D agrega un corpus declarativo external-clean para el track `halueval_qa` (Q
 R1-D completó la evaluación estructural sobre el corpus declarativo R0.5D. El compuesto Flow + CRE + Negation alcanzó F1=0.8571, precisión=0.9513, recall=0.7798 y accuracy=0.8699 en test, superando el baseline léxico (AUC 0.749) en un 22.4%. La señal estructural de SAS es real y detectable en QA factual.
 
 R2.1 extiende la línea de evaluación estructural al dominio de código, con el mismo estándar de rigor aplicado a resultados positivos y negativos. Se construyó un corpus de 1.596 muestras con etiqueta de corrección funcional verificada por ejecución real (no por divergencia textual, que fue la etiqueta original del dataset público y se identificó como inválida para este propósito). La comparación estructural AST contra una implementación de referencia, sin vetos binarios, alcanzó AUC 0.9141 (bruto) / 0.9421 (controlando el confundidor de longitud) — resultado positivo y robusto. La coherencia topológica interna (TDA), adaptada del mecanismo usado en texto, no transfiere a fragmentos cortos de código (AUC 0.40-0.45, confirmado por dos implementaciones independientes) — hallazgo negativo documentado con el mismo rigor. Un método adicional de "física de la información" fue excluido de los resultados validados tras auditoría interna, que encontró un defecto de implementación (40% del peso del score era inerte por manejo silencioso de excepciones y un valor de reemplazo fijo). R2.1 no resuelve la detección de alucinaciones de código sin referencia disponible — ese problema queda declarado explícitamente como trabajo futuro (R2.1-b).
+
+R2.1-b ataca el subproblema más acotado de la detección sin referencia: verificar si un módulo importado en código Python corresponde a un paquete real, usando solo el nombre del módulo. La Fase 1 construyó una base de conocimiento mínima (biblioteca estándar + top-200 de PyPI) y documentó que el nombre de un paquete en PyPI frecuentemente difiere de su nombre de import. La Fase 2 validó el sistema contra el dataset público "Slopsquatting" de Trend Micro (7.956 referencias reales, 302 paquetes fabricados confirmados), con resultado negativo en bruto (precisión 5,25%) y el hallazgo de que 28 de esas 302 etiquetas eran ruido metodológico del propio dataset externo — corregido, el recall queda en 100%. La Fase 3 reemplazó la base estática por una consulta en vivo al registro real de PyPI, alcanzando precisión perfecta (100,00%, 0 falsos positivos) a costa de un recall de 61,68%. Investigar esa caída produjo un hallazgo no planificado: 21 de los 24 nombres remanentes son paquetes reales, registrados en PyPI entre el 19 y el 21 de febrero de 2026, descriptos explícitamente como "Benign slopsquatting research package" — evidencia de registro defensivo activo de exactamente los nombres que los agentes de código alucinan. R2.1-b no resuelve la validación de funciones o métodos específicos, que queda como trabajo futuro abierto.
 
 ---
 
