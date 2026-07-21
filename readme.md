@@ -12,6 +12,7 @@
 [![R1-D DOI](https://img.shields.io/badge/R1--D-Zenodo%2021282332-blue)](https://zenodo.org/records/21282332)
 [![R2.1 DOI](https://img.shields.io/badge/R2.1-Zenodo%2021365707-blue)](https://doi.org/10.5281/zenodo.21365707)
 [![R2.1-b DOI](https://img.shields.io/badge/R2.1--b-Zenodo%2021420392-blue)](https://doi.org/10.5281/zenodo.21420392)
+[![R2.1-b DOI](https://img.shields.io/badge/R2.1--b--func-Zenodo%2021466891-blue)](https://doi.org/10.5281/zenodo.21466891)
 
 ---
 
@@ -50,6 +51,7 @@ The following records document the SAS / Project Manifold κD-0.56 research line
 | R1-D | Structural evaluation over declarative corpus R0.5D | https://doi.org/10.5281/zenodo.21282332 |
 | R2.1 | Structural code hallucination detection via AST fingerprinting (code domain) | https://doi.org/10.5281/zenodo.21365707 |
 | R2.1-b | Toward reference-free code hallucination detection: minimal API knowledge base, live PyPI verification, and evidence of defensive package squatting | https://doi.org/10.5281/zenodo.21420392 |
+| R2.1-b (function-level) | Reference-free validation of Python API calls via sandboxed introspection | https://doi.org/10.5281/zenodo.21466891 |
 
 ### Repositories and Public Endpoints
 
@@ -71,6 +73,7 @@ R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_
 R1-D      = structural evaluation over declarative corpus R0.5D: Flow composite F1=0.857 (supera baseline +22.4%) 
 R2.1      = extension of κD structural evaluation to the code domain (AST fingerprinting vs. reference implementation)
 R2.1-b    = toward reference-free detection: import-level validation via a minimal API knowledge base and live PyPI verification (precision 100%, recall 61.68% with a documented registry-drift explanation)
+R2.1-b-func = function/method-level extension: sandboxed introspection KB for 5 libraries, precision 100.00% / recall 98.04% / F1 0.9901 on a scope-aligned subset of arXiv:2601.19106's replication package
 ```
 
 ### Methodological Boundary
@@ -416,6 +419,7 @@ R0.5 is a multi-track external-clean program. R0.5P-1 validates only the first p
 | R0.5S — Summarization / Long Context | summarization-style categories | Deferred |
 | R0.5R — Reasoning / Rationalization | rationalization and solver-style categories | Deferred |
 | R0.5N — Numerical / Code / Structured Tasks | numerical false-presupposition, code, mapping, and structured task categories | Deferred |
+
 
 ### R0.5P-1 Methodological Boundary
 
@@ -955,6 +959,56 @@ Durante, G. E. (2026). SAS / κD=0.56 — R2.1-b: Toward Reference-Free Code Hal
 
 ---
 
+## R2.1-b Function-Level Extension — Reference-Free Validation of Python API Calls — 2026-07-20
+
+This section extends R2.1-b's import-level phase (DOI 10.5281/zenodo.21420392) to function/method existence: given that a module is real, does a specific call against it actually exist? A knowledge base of real callable API surface was built for five vetted libraries (numpy, pandas, matplotlib.pyplot, requests, json) via sandboxed live introspection, and an AST-based validator checks calls against it without ever executing the candidate code.
+
+This section documents this extension only. It does not claim resolution of calls on object instances (type inference), coverage beyond the five listed libraries, or a solution to "missing import" or "contextual misnaming" categories of error.
+
+### Artifact Locations
+
+| Repository path | Role | SHA-256 |
+|---|---|---|
+| `docs/en/outputs/R2.1b_Function_Level_Extension_Zenodo.zip` | Full package: technical paper (PDF + Markdown), code (`build_function_kb.py`, `validate_function_call.py`, `eval_function_existence.py`), generated knowledge base, per-row-ID results manifest, and README with scope disclaimer. | `c232c94512760f1dbd4fd713c89b55a3badc653c4ca7432d2b1d1ecaf368106b` (full ZIP) |
+
+Zenodo record: https://doi.org/10.5281/zenodo.21466891
+Timestamp proof: RFC 3161 token (TSA: FreeTSA), included in the Zenodo deposit as `.tsr`
+
+### Corpus Catalog Correction
+
+The evaluation corpus, `WM-SEMERU/Hallucinations-in-Code`, had previously been catalogued in this project's own history as a small synthetic dataset without academic backing. That characterization is corrected here: it is the official replication package of arXiv:2601.19106, accepted at FORGE '26. It is not redistributed in this deposit (its source repository declares no license); retrieval instructions are provided in the package README.
+
+### Key Results
+
+| Metric | Value |
+|---|---:|
+| Corpus | 200 rows; 145 scope-aligned (name-existence categories); 140 after ground-truth noise exclusion |
+| **Precision** | **100.00%** |
+| **Recall** | **98.04%** |
+| **F1** | **0.9901** |
+| Comparison (arXiv:2601.19106, 200 rows, all categories) | Precision 100.00% / Recall 87.60% / F1 0.934 |
+
+### Ground-Truth Defect Found During Validation
+
+Five rows (IDs 67, 107, 125, 167, 187) in the external dataset's own reference code used `pandas.groupby(...)` as a module-level call — independently confirmed non-existent by direct execution (`AttributeError: module 'pandas' has no attribute 'groupby'`; `groupby` exists only as a DataFrame/Series instance method). These rows were excluded from scoring as benchmark noise, not force-relabeled — the same methodology used for MBPP assertion noise in R2.1 and mislabeled entries in the Slopsquatting corpus in R2.1-b's import-level phase. This is the third documented instance of this pattern in this research line.
+
+### Methodological Boundary
+
+The correct public claim is:
+
+```text
+This extension validates function/method-name existence for direct calls against five specific, pre-vetted Python libraries, reaching precision 100.00% and recall 98.04% on a scope-aligned, ground-truth-corrected subset of a published external benchmark. It does not claim resolution of calls on object instances (requires type inference, left as future work), coverage of any library beyond the five evaluated, or a solution to "missing import" or "contextual misnaming" categories of error, which are unaddressable in principle by any existence-based method.
+```
+
+### Recommended Citation
+
+```text
+Durante, G. E. (2026). SAS / κD=0.56 — R2.1-b, Function-Level Extension: Reference-Free Validation of Python API Calls via Sandboxed Introspection. Zenodo. https://doi.org/10.5281/zenodo.21466891
+```
+
+---
+
+
 A later SAS annex documents mathematical and semantic representations equivalent to κD = 0.56. It includes:
 
 - exact fractional forms such as `14/25`;
@@ -1318,7 +1372,8 @@ R0.5P-2A should be read as a second validated external-clean track, not as compl
 1. R1-D published to Zenodo ✅ (DOI: 10.5281/zenodo.21282332)
 2. R2.1 published to Zenodo ✅ (DOI: 10.5281/zenodo.21365707) — code-domain extension, structural comparison validated, TDA negative result documented.
 3. R2.1-b published to Zenodo ✅ (DOI: 10.5281/zenodo.21420392) — reference-free import-existence validation via live PyPI verification; precision 100.00%; recall gap investigated and substantially explained by registry drift, with an unplanned finding of active defensive package squatting.
-4. Function- and method-level reference-free validation (open work carried forward from R2.1-b; no dedicated milestone number assigned yet).
+4. R2.1-b, function-level extension published to Zenodo ✅ (DOI: 10.5281/zenodo.21466891) — precision 100.00%, recall 98.04%, third ground-truth-defect finding in this research line documented.
+5. Instance-method resolution via lightweight type inference (open work, no dedicated milestone yet).
 5. Add empirical data to BDI paper (10-20 runs with hashes), to be grounded in validation across at least two domains (declarative text + code) rather than text alone.
 6. Continue deferred R0.5 tracks (dialogue, summarization, reasoning) and R2.2/R3 (dialogue coherence / temporal consistency), same execution-verified-ground-truth discipline used in R2.1/R2.1-b where applicable.
 7. R1 tribunal calibration with nonredundant evidence clusters.
@@ -1383,6 +1438,9 @@ R1-D completó la evaluación estructural sobre el corpus declarativo R0.5D. El 
 R2.1 extiende la línea de evaluación estructural al dominio de código, con el mismo estándar de rigor aplicado a resultados positivos y negativos. Se construyó un corpus de 1.596 muestras con etiqueta de corrección funcional verificada por ejecución real (no por divergencia textual, que fue la etiqueta original del dataset público y se identificó como inválida para este propósito). La comparación estructural AST contra una implementación de referencia, sin vetos binarios, alcanzó AUC 0.9141 (bruto) / 0.9421 (controlando el confundidor de longitud) — resultado positivo y robusto. La coherencia topológica interna (TDA), adaptada del mecanismo usado en texto, no transfiere a fragmentos cortos de código (AUC 0.40-0.45, confirmado por dos implementaciones independientes) — hallazgo negativo documentado con el mismo rigor. Un método adicional de "física de la información" fue excluido de los resultados validados tras auditoría interna, que encontró un defecto de implementación (40% del peso del score era inerte por manejo silencioso de excepciones y un valor de reemplazo fijo). R2.1 no resuelve la detección de alucinaciones de código sin referencia disponible — ese problema queda declarado explícitamente como trabajo futuro (R2.1-b).
 
 R2.1-b ataca el subproblema más acotado de la detección sin referencia: verificar si un módulo importado en código Python corresponde a un paquete real, usando solo el nombre del módulo. La Fase 1 construyó una base de conocimiento mínima (biblioteca estándar + top-200 de PyPI) y documentó que el nombre de un paquete en PyPI frecuentemente difiere de su nombre de import. La Fase 2 validó el sistema contra el dataset público "Slopsquatting" de Trend Micro (7.956 referencias reales, 302 paquetes fabricados confirmados), con resultado negativo en bruto (precisión 5,25%) y el hallazgo de que 28 de esas 302 etiquetas eran ruido metodológico del propio dataset externo — corregido, el recall queda en 100%. La Fase 3 reemplazó la base estática por una consulta en vivo al registro real de PyPI, alcanzando precisión perfecta (100,00%, 0 falsos positivos) a costa de un recall de 61,68%. Investigar esa caída produjo un hallazgo no planificado: 21 de los 24 nombres remanentes son paquetes reales, registrados en PyPI entre el 19 y el 21 de febrero de 2026, descriptos explícitamente como "Benign slopsquatting research package" — evidencia de registro defensivo activo de exactamente los nombres que los agentes de código alucinan. R2.1-b no resuelve la validación de funciones o métodos específicos, que queda como trabajo futuro abierto.
+
+La extensión a nivel de función de R2.1-b valida si una llamada específica (`módulo.función()`) existe de verdad, no solo si el módulo existe. Se construyó una base de conocimiento por introspección sandboxeada de cinco librerías conocidas (numpy, pandas, matplotlib.pyplot, requests, json), validada contra el paquete de replicación público de arXiv:2601.19106 (FORGE '26). Resultado: precisión 100,00%, recall 98,04%, F1 0,9901 — superando el recall y F1 publicados por ese paper (87,6% / 0,934) sobre terreno comparable. Durante la validación se encontró un tercer caso del mismo patrón ya visto en R2.1 y R2.1-b: el propio ground truth del dataset externo usaba `pandas.groupby(...)` como llamada de módulo, que no existe (confirmado por ejecución directa) — corregido excluyendo esas filas como ruido de benchmark, no reetiquetándolas. Quedan como límites explícitos: sin resolución de llamadas sobre instancias de objetos (requeriría inferencia de tipos), y las categorías "import faltante" y "mal uso contextual" fuera de alcance por principio.
+
 
 ---
 
