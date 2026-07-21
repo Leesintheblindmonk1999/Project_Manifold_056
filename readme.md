@@ -1374,10 +1374,10 @@ R0.5P-2A should be read as a second validated external-clean track, not as compl
 3. R2.1-b published to Zenodo ✅ (DOI: 10.5281/zenodo.21420392) — reference-free import-existence validation via live PyPI verification; precision 100.00%; recall gap investigated and substantially explained by registry drift, with an unplanned finding of active defensive package squatting.
 4. R2.1-b, function-level extension published to Zenodo ✅ (DOI: 10.5281/zenodo.21466891) — precision 100.00%, recall 98.04%, third ground-truth-defect finding in this research line documented.
 5. Instance-method resolution via lightweight type inference (open work, no dedicated milestone yet).
-5. Add empirical data to BDI paper (10-20 runs with hashes), to be grounded in validation across at least two domains (declarative text + code) rather than text alone.
-6. Continue deferred R0.5 tracks (dialogue, summarization, reasoning) and R2.2/R3 (dialogue coherence / temporal consistency), same execution-verified-ground-truth discipline used in R2.1/R2.1-b where applicable.
-7. R1 tribunal calibration with nonredundant evidence clusters.
-8. External peer review (e.g. F1000Research, Qeios) remains available as an optional validation channel for any published milestone; it is not treated as a blocking requirement for continued development of the standard.
+6. Add empirical data to BDI paper (10-20 runs with hashes), to be grounded in validation across at least two domains (declarative text + code) rather than text alone.
+7. Continue deferred R0.5 tracks (dialogue, summarization, reasoning) and R2.2/R3 (dialogue coherence / temporal consistency), same execution-verified-ground-truth discipline used in R2.1/R2.1-b where applicable.
+8. R1 tribunal calibration with nonredundant evidence clusters.
+9. External peer review (e.g. F1000Research, Qeios) remains available as an optional validation channel for any published milestone; it is not treated as a blocking requirement for continued development of the standard.
 
 ### R0.5 Deferred Track Roadmap
 
