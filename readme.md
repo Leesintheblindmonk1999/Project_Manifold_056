@@ -70,7 +70,7 @@ R0.5P-1   = first external-clean prompt-paraphrase track over historical query s
 R0.5P-2A  = numerical false-presupposition instruction-paraphrase external-clean track
 R0.5D     = declarative external-clean corpus for halueval_qa (factual QA)
 R1        = real local structural evaluation v1.0.7 over A_clean→C_clean vs A_clean→B_hallucination
-R1-D      = structural evaluation over declarative corpus R0.5D: Flow composite F1=0.857 (supera baseline +22.4%) 
+R1-D      = structural evaluation over declarative corpus R0.5D: (Flow + CRE + Negation, score >= 1) detects hallucination-like divergence on declarative QA data at F1 = 0.5230 
 R2.1      = extension of κD structural evaluation to the code domain (AST fingerprinting vs. reference implementation)
 R2.1-b    = toward reference-free detection: import-level validation via a minimal API knowledge base and live PyPI verification (precision 100%, recall 61.68% with a documented registry-drift explanation)
 R2.1-b-func = function/method-level extension: sandboxed introspection KB for 5 libraries, precision 100.00% / recall 98.04% / F1 0.9901 on a scope-aligned subset of arXiv:2601.19106's replication package
@@ -792,55 +792,61 @@ The correct public claim is:
 R0.5D is a declarative external-clean corpus for halueval_qa that reduces the length confound and provides a lexical baseline of AUC 0.749. It is explicitly designed for R1-D structural evaluation. It does not claim final SAS validation, universal hallucination detection, or superiority over lexical baselines.
 ```
 
-## R1-D Structural Evaluation over Declarative Corpus R0.5D (halueval_qa) — 2026-07-09
+## R1-D Structural Evaluation over Declarative Corpus R0.5D (halueval_qa) — 2026-07-09 (CORRECTED 2026-07-29)
 
-R1-D is the structural evaluation milestone over the declarative corpus R0.5D (`halueval_qa`). Its primary scientific objective was to determine whether **SAS structural modules** (Flow, CRE, Negation, NIG, TDA) can detect hallucination-like divergence beyond the lexical baseline established in R0.5D (AUC 0.749, C/B ratio 1.29).
+> **Erratum notice:** the headline figures originally published here (F1=0.8571/0.8717) were copied from R1 v1.0.7's own ablation table (DOI 10.5281/zenodo.21034155) rather than computed on the R0.5D corpus this milestone is about. Corrected below, with the verification method disclosed. See `PUBLICATION_STATUS_R1-D1.md` for the full erratum. No artifact hash is affected — only the interpretive claims built on top of the (unaffected) underlying data.
 
-The evaluation confirms that **structural signal is real, detectable, and significantly exceeds the lexical baseline**.
+R1-D is the structural evaluation milestone over the declarative corpus R0.5D (`halueval_qa`). Its objective was to determine whether **SAS structural modules** (Flow, CRE, Negation, NIG) detect hallucination-like divergence beyond the lexical baseline established in R0.5D (AUC 0.749, C/B ratio 1.29).
+
+**Corrected finding: the binary-voting composite performs above chance but below the lexical baseline on this corpus** — a materially different and more modest conclusion than originally published.
 
 ### R1-D Artifact Locations
 
 | Repository path | Role | SHA-256 |
 |---|---|---|
 | `docs/en/outputs/R1D_COMPLETE_20260709.zip` | Master archive: r1d_results + r1_eval + integrity manifest | `24E69B7D20F190389ABAC1737268C54ADA23EBFD4CCF54E4A8888AAFBF944C90` |
-| `docs/en/outputs/r1d_results_archive.zip` | 3 batches .jsonl (1,488 rows) | `37F2B540737C11B18622A586611D2DA90057722678148691AC8E77F9538E6191` |
+| `docs/en/outputs/r1d_results_archive.zip` | 3 batches .jsonl (1,488 rows) — the source data used for this correction | `37F2B540737C11B18622A586611D2DA90057722678148691AC8E77F9538E6191` |
 | `docs/en/outputs/r1_eval_archive.zip` | Calibrated evaluation: nonruntime, composite ablation, scalar probe | `41B6BF24440E04E579DA57298783BDDFF5294CA73D10BBB14516DF34E135A699` |
-| `PUBLICATION_STATUS_R1-D1.md` | Repository-root publication status note for R1-D | Human-readable publication status |
-| `R1D_Paper_v1.0.0.pdf` | Paper técnico para Zenodo | `C7F5C6AAF96AB1EB299D28D50B483A3C9C5220666DA16B487D609CCF2341491D` |
+| `PUBLICATION_STATUS_R1-D1.md` | Repository-root publication status note for R1-D, **v1.1.0, with full erratum** | Human-readable publication status |
+| `R1D_Paper_v1.0.0.pdf` | Paper técnico para Zenodo (results table pending update to match this erratum) | `C7F5C6AAF96AB1EB299D28D50B483A3C9C5220666DA16B487D609CCF2341491D` |
 
-### R1-D Key Results
+### R1-D Key Results (Corrected)
 
-| Metric | Value |
-|---|---:|
-| **Flow composite F1 (test)** | **0.8571** |
-| **Precision** | **0.9513** |
-| **Recall** | **0.7798** |
-| **Accuracy** | **0.8699** |
-| **Optimal threshold** | **composite >= 1** |
-| **Improvement vs R0.5D lexical baseline** | **+22.4%** |
+| Rule | F1 | Precision | Recall | Accuracy |
+|---|---:|---:|---:|---:|
+| Flow only (`layer4_fired`) | 0.3485 | 0.7478 | 0.2272 | 0.5753 |
+| Flow + CRE + Negation (`score>=1`) | **0.5230** | 0.5617 | 0.4892 | 0.5538 |
+| Flow + CRE + Negation + NIG (`score>=1`) | 0.5267 | 0.5436 | 0.5108 | 0.5410 |
+| Lexical baseline (R0.5D, for reference) | — | — | — | AUC 0.749 |
 
-### R1-D Methodological Boundary
+### How the Error Was Found and Corrected
+
+An independent re-verification, undertaken as part of a broader effort to cross-correlate production modules against R0-bis's baseline modules on real (non-clean-self) data, found that the originally published R1-D figures matched R1's own ablation table to four decimal places across every metric — not possible by coincidence. The correct figures above were computed directly from the original, unmodified per-pair module outputs stored in `r1d_results_archive.zip` from the 9 July 2026 run (`flow.layer4_fired`, `cre.raw.is_rupture`, `negation.polarity_inverted`, `nig.alert`), not from a re-run of the modules — the source data was always correct; only the summary claims built on top of it were wrong.
+
+### R1-D Methodological Boundary (Corrected)
 
 The correct public claim is:
 
+```text
+R1-D shows that a binary-voting composite of SAS structural modules
+(Flow + CRE + Negation, score >= 1) detects hallucination-like divergence
+on declarative QA data at F1 = 0.5230 — above chance, but below the
+lexical baseline (AUC 0.749) established for the same corpus in R0.5D.
+Flow alone is high-precision/low-recall (0.7478/0.2272). Adding NIG to
+the vote does not produce a clearly significant change (F1 0.5267).
 ```
-R1-D demonstrates that SAS structural modules produce a reproducible, interpretable signal on declarative QA data. The best Flow + CRE + Negation composite achieved test F1=0.8571, precision=0.9513, recall=0.7798, and accuracy=0.8699.
-This record does not claim:
 
-final production-grade hallucination detection;
+This record does **not** claim:
 
-universal SAS validation;
+- that the composite outperforms the lexical baseline on this corpus (it does not);
+- final production-grade hallucination detection;
+- universal SAS validation;
+- validity of runtime-derived features as scientific evidence;
+- any claim from the original v1.0.0 publication that is contradicted by this correction.
 
-superiority over lexical baselines (though it exceeds them);
-
-validity of runtime-derived features as scientific evidence.
-
-```
 ### R1 Follow-up / Tribunal Calibration
 
-R1-D has now produced the first documented structural-evaluation pass over declarative QA data. The next R1-oriented work should not count correlated baseline modules as independent votes. R0-bis showed that redundant signals must be clustered before voting.
-
-The future R1 tribunal should report evidence clusters, module dependencies, and failure categories rather than presenting every signal as an independent vote. R1-D should be treated as a structural bridge and calibration input for the tribunal.
+This correction sharpens, rather than resolves, the open tribunal-calibration question already on this project's roadmap. A binary-voting composite of the current production modules underperforms a simple lexical baseline on R0.5D — the next work is a proper correlation study (production modules + R0-bis baseline modules, together, on real R0.5D data) to determine which signals are redundant, which are genuinely complementary, and whether a different combination rule (not a flat OR-vote) performs better. This is in progress as a direct follow-on to this erratum.
 
 ---
 
@@ -1388,7 +1394,7 @@ R0.5 must remain track-conditioned. The next tracks should be opened only after 
 | Completed | R0.5P-1 historical query paraphrase                            | Published as the first validated prompt-paraphrase external-clean track over `halogen/historical_events`.                |
 | Completed | R0.5P-2A numerical false-presupposition instruction paraphrase | Published as a validated instruction-paraphrase external-clean track over `halogen/numerical_falsepresupposition`.       |
 | Completed | R0.5D declarative QA (halueval_qa)                             | Published as a validated declarative external-clean corpus over `halueval_qa` with baseline AUC 0.749.                   |
-| Completed | R1-D structural evaluation over declarative corpus R0.5D       | Published: Flow composite F1=0.857, precision=0.951, recall=0.780, accuracy=0.870.                                       |
+| Completed | R1-D structural evaluation over declarative corpus R0.5D       | Published: | Flow + CRE + Negation + NIG (`score>=1`) | 0.5267 | 0.5436 | 0.5108 | 0.5410 |                                       |
 |         1 | R0.5P prompt-like biographies / references                     | Confirm whether the source asks for a bio/reference list, asks a factual question, or contains declarative prose.        |
 |         2 | R0.5Q QA                                                       | Define whether `C_clean` should paraphrase the question, answer the question, or preserve a source/target mapping.       |
 |         3 | R0.5S summarization                                            | Define source length, compression ratio, and factual preservation rules.                                                 |
@@ -1433,7 +1439,7 @@ R1 real local v1.0.7 agrega el primer puente estructural entre los outputs exter
 
 R0.5D agrega un corpus declarativo external-clean para el track `halueval_qa` (QA factual). Con 744 respuestas `C_clean` aceptadas, el baseline léxico se redujo a AUC 0.749 y el confundidor de longitud se atenuó (ratio C/B 1.29 vs 2.07 en R1). El hallazgo metodológico principal fue que `long_b_ngram_overlap` en QA mide solapamiento tópico legítimo, no contaminación, lo que llevó a ajustar el umbral de 2 a 4 5-gramas compartidos. El corpus está diseñado para el siguiente hito: R1-D, que evaluará la señal estructural de SAS sobre estos datos declarativos.
 
-R1-D completó la evaluación estructural sobre el corpus declarativo R0.5D. El compuesto Flow + CRE + Negation alcanzó F1=0.8571, precisión=0.9513, recall=0.7798 y accuracy=0.8699 en test, superando el baseline léxico (AUC 0.749) en un 22.4%. La señal estructural de SAS es real y detectable en QA factual.
+R1-D completó la evaluación estructural sobre el corpus declarativo R0.5D. **Corrección (29 de julio de 2026): los números publicados originalmente (F1=0,8571/0,8717) resultaron ser una copia de la propia tabla de ablación de R1 (DOI 10.5281/zenodo.21034155), no un cómputo real sobre R0.5D — coincidían a cuatro decimales en las cuatro métricas, algo imposible por azar.** El número real, verificado directamente contra los datos originales guardados del run del 9 de julio, es: compuesto Flow+CRE+Negation, F1=0,5230, precisión=0,5617, recall=0,4892 — por encima del azar, pero por debajo del baseline léxico (AUC 0,749) del mismo corpus. `flow.layer4_fired` solo tiene precisión alta pero recall bajo (0,7478/0,2272). Esta corrección no afecta ningún hash de artefacto — solo la interpretación construida sobre datos que siempre fueron correctos. El hallazgo se encontró y corrigió con el mismo estándar de rigor ya aplicado a los defectos de ground truth externos en R2.1 y R2.1-b.
 
 R2.1 extiende la línea de evaluación estructural al dominio de código, con el mismo estándar de rigor aplicado a resultados positivos y negativos. Se construyó un corpus de 1.596 muestras con etiqueta de corrección funcional verificada por ejecución real (no por divergencia textual, que fue la etiqueta original del dataset público y se identificó como inválida para este propósito). La comparación estructural AST contra una implementación de referencia, sin vetos binarios, alcanzó AUC 0.9141 (bruto) / 0.9421 (controlando el confundidor de longitud) — resultado positivo y robusto. La coherencia topológica interna (TDA), adaptada del mecanismo usado en texto, no transfiere a fragmentos cortos de código (AUC 0.40-0.45, confirmado por dos implementaciones independientes) — hallazgo negativo documentado con el mismo rigor. Un método adicional de "física de la información" fue excluido de los resultados validados tras auditoría interna, que encontró un defecto de implementación (40% del peso del score era inerte por manejo silencioso de excepciones y un valor de reemplazo fijo). R2.1 no resuelve la detección de alucinaciones de código sin referencia disponible — ese problema queda declarado explícitamente como trabajo futuro (R2.1-b).
 
