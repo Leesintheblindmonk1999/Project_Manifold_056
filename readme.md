@@ -1,5 +1,13 @@
 # Project Manifold 0.56 — Historical κD Prior-Art Snapshot
 
+> **Contract for this repository:**
+
+> This repo is a **prior-art traceability archive** for the κD threshold of 0.56.
+
+> Documents R0, R0-bis, R0.5, R1, R2.1, etc., are added here as a **frozen document record** of each milestone, not as actively developed code.
+
+> The current operational implementation lives on [SAS](https://github.com/Leesintheblindmonk1999/SAS).
+
 > Historical research snapshot for κD = 0.56, structural coherence auditing, and the early Manifold pipeline.
 
 [![SAS Standard DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19702379-blue)](https://doi.org/10.5281/zenodo.19702379)
@@ -78,10 +86,23 @@ R2.1-b-func = function/method-level extension: sandboxed introspection KB for 5 
 
 ### Methodological Boundary
 
-These records document a reproducible research progression for structural coherence auditing, external-clean generation, verifier calibration, and prior-art traceability.
+---
 
-They do **not** claim final production validation of SAS, universal hallucination detection, or benchmark superiority over other systems. R1 real local v1.0.7 is the first documented structural-evaluation pass over the external-clean corpus generated in R0.5. It demonstrates non-runtime interpretable structural signal while preserving the limitation that the lexical baseline remains stronger.
+## Relationship to SAS
 
+- **This repository (Project Manifold 0.56):** documents the research progression R0 → R2.1-b with explicit methodological boundaries. Results here are domain-specific, often below lexical baselines, and reported as calibration inputs — not as production claims.
+- **[SAS](https://github.com/Leesintheblindmonk1999/SAS):** the active operational implementation with its own validation pipeline (Forensic V1 benchmark: 98.80 % accuracy on its specific dataset). SAS numbers should not be projected backward onto Manifold milestones, and Manifold limitations should not be projected forward as SAS defects.
+
+
+---
+
+## On Physical-Mathematical Language
+
+Terms such as "thermodynamic," "crystal," "Ricci," "manifold," and "phase transition" are preserved as **historical design metaphors** from the R0 architecture. They should be read as conceptual or heuristic language unless explicitly tied to a formal mathematical definition.
+
+- `RicciAggregator` implements a smoothing heuristic inspired by geometric intuition, not the formal differential equation ∂g/∂t = −2Rij.
+- `CrystalEngine` is a structured embedding generator, not a claim of physical crystallization.
+- κD = 0.56 is an empirical audit threshold, not a universal physical constant.
 
 ---
 
@@ -944,6 +965,10 @@ Timestamp proof: RFC 3161 token (TSA: FreeTSA), included in the Zenodo deposit a
 
 ### R2.1-b Methodological Boundary
 
+### Responsible Disclosure Note
+
+The observation that certain PyPI package names correspond to "benign slopsquatting research package" descriptions is reported as a **public-registry observation**, not as an accusation of misconduct by any specific maintainer. No attribution to individuals or organizations is claimed. If these registrations serve a defensive security purpose, their documentation here is intended to support, not undermine, that purpose. No recommendation is made to remove, flag, or report these packages to PyPI administrators.
+
 The correct public claim is:
 
 ```text
@@ -1130,14 +1155,14 @@ Preserved value:
 This is the historical certification layer. Every run is classified against three tiers:
 
 | Class | Code | Condition | Historical Action |
-|-------|------|-----------|------------------|
+|-------|------|-----------|-------------------|
 | CERTIFIED | A | Composite score ≥ 0.56 | OSS-style record may be issued |
 | DEGRADED | B | 0.44 < score < 0.56 | Review recommended |
-| NULL | F-S | Score ≤ 0.44 | Fail-safe action may be triggered depending on deployment policy |
+| NULL | F-S | Score ≤ 0.44 | Policy-configurable escalation may be triggered depending on deployment policy |
 
 `CertificationGenerator` produces an OSS-style JSON record with UUID, timestamp, and SHA-256 digest. The harmonic mean is preserved as a historically important aggregation method because it penalizes weak components and prevents a high score in one module from masking a low score elsewhere.
 
-The original “kill-switch” concept is preserved as a fail-safe pattern for high-risk deployments. In active SAS implementations, downstream actions should be configurable by policy and environment.
+> The original documentation used "kill-switch" as historical shorthand for a configurable fail-safe pattern. It is preserved here as a design concept, not as a recommendation for universal deployment. Downstream actions (flag, block, escalate, certify-only) should always be set by deployment policy.
 
 ---
 
@@ -1428,6 +1453,11 @@ The future R1 tribunal should report evidence clusters, module dependencies, and
 ## Spanish Summary / Resumen en español
 
 **Project Manifold 0.56** se preserva como snapshot histórico y técnico del estándar κD = 0.56. Este repositorio registra la arquitectura temprana de seis fases, el pipeline TDA + Ricci-inspired + simplicial, el concepto inicial de OSS, el manifiesto SHA-256 y la trazabilidad legal/documental asociada.
+
+> **Contrato de este repositorio:**  
+> Este repo es un **archivo de trazabilidad prior-art** para el umbral κD = 0.56.  
+> Los documentos R0, R0-bis, R0.5, R1, R2.1, etc. se agregan aquí como **registro documental congelado** de cada milestone, no como código en desarrollo activo.  
+> La implementación operativa actual vive en [SAS](https://github.com/Leesintheblindmonk1999/SAS).
 
 Las actualizaciones documentales posteriores no cambian el valor histórico de R0. Su función es aclarar la terminología, enlazar R0/R0-bis/R0.5P-1 con el desarrollo activo de SAS, y preservar la trazabilidad metodológica. R0.5P-1 agrega el primer track external-clean validado: parafraseo de consultas históricas sobre `halogen/historical_events`, con 1197/1200 generaciones aceptadas, 1197/1197 verificadas y tres rechazos documentados como generaciones malformadas.
 
